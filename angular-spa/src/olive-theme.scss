@@ -1,0 +1,20 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$olive-app-primary: mat-palette($mat-light-green, 400, 500, 600);
+$olive-app-accent: mat-palette($mat-indigo, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$olive-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$olive-app-theme: mat-light-theme(
+  $olive-app-primary,
+  $olive-app-accent,
+  $olive-app-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($olive-app-theme);
