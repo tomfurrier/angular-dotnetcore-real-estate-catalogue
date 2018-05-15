@@ -1,3 +1,5 @@
 
 
 angular-spa/src/environments/environment\.prod\.ts
+
+angular-spa/src/environments/environment\.dev\.ts
