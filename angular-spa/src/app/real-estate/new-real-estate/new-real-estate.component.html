@@ -24,37 +24,38 @@
       </mat-select>
       <mat-error *ngIf="newRealEstateForm.controls['realEstateType'].errors?.required && newRealEstateForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="Hirdetés célja" ngModel formControlName="intent" required>
-        <mat-option [value]=0>Eladás</mat-option>
-        <mat-option [value]=1>Kiadás</mat-option>
-      </mat-select>
-      <mat-error *ngIf="newRealEstateForm.controls['intent'].errors?.required && newRealEstateForm.controls['intent'].touched">Kötelező kitölteni.</mat-error>
-    </mat-form-field>
+    <mat-card>
+      <mat-button-toggle-group color="primary" aria-label="Hirdetés célja" name="intent" value="sell">
+        <mat-button-toggle value="sell">Eladó</mat-button-toggle>
+        <mat-button-toggle value="rent">Kiadó</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card>
     <mat-form-field>
       <input type="number" placeholder="Ár (HUF)" class="form-control" formControlName="price" matInput required>
       <mat-error *ngIf="newRealEstateForm.controls['price'].errors?.required && newRealEstateForm.controls['price'].touched">Kötelező kitölteni.</mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input type="number" placeholder="Irányítószám" class="form-control" formControlName="zipCode" matInput required>
-      <mat-error *ngIf="newRealEstateForm.controls['zipCode'].errors?.required && newRealEstateForm.controls['zipCode'].touched">Kötelező kitölteni.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" placeholder="Település" class="form-control" formControlName="city" matInput required>
-      <mat-error *ngIf="newRealEstateForm.controls['city'].errors?.required && newRealEstateForm.controls['city'].touched">Kötelező kitölteni.</mat-error>
-    </mat-form-field>
-    <!-- TODO!!! autocompletee & stuff -->
-    <mat-form-field *ngIf="newRealEstateForm.controls['city'].value=='budapest' || newRealEstateForm.controls['city'].value=='Budapest'">
-      <input type="number" placeholder="Kerület" min="1" max="23" class="form-control" formControlName="district" matInput>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" placeholder="Utca" class="form-control" formControlName="street" matInput required>
-      <mat-error *ngIf="newRealEstateForm.controls['street'].errors?.required && newRealEstateForm.controls['street'].touched">Kötelező kitölteni.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" placeholder="Házszám" class="form-control" formControlName="addressNum" matInput required>
-      <mat-error *ngIf="newRealEstateForm.controls['addressNum'].errors?.required && newRealEstateForm.controls['addressNum'].touched">Kötelező kitölteni.</mat-error>
-    </mat-form-field>
+    <mat-card fxLayout="column">
+      <mat-form-field>
+        <input type="number" placeholder="Irányítószám" class="form-control" formControlName="zipCode" matInput required>
+        <mat-error *ngIf="newRealEstateForm.controls['zipCode'].errors?.required && newRealEstateForm.controls['zipCode'].touched">Kötelező kitölteni.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" placeholder="Település" class="form-control" formControlName="city" matInput required>
+        <mat-error *ngIf="newRealEstateForm.controls['city'].errors?.required && newRealEstateForm.controls['city'].touched">Kötelező kitölteni.</mat-error>
+      </mat-form-field>
+      <!-- TODO!!! autocompletee & stuff -->
+      <mat-form-field *ngIf="newRealEstateForm.controls['city'].value=='budapest' || newRealEstateForm.controls['city'].value=='Budapest'">
+        <input type="number" placeholder="Kerület" min="1" max="23" class="form-control" formControlName="district" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" placeholder="Utca" class="form-control" formControlName="street" matInput required>
+        <mat-error *ngIf="newRealEstateForm.controls['street'].errors?.required && newRealEstateForm.controls['street'].touched">Kötelező kitölteni.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" placeholder="Házszám" class="form-control" formControlName="addressNum" matInput required>
+        <mat-error *ngIf="newRealEstateForm.controls['addressNum'].errors?.required && newRealEstateForm.controls['addressNum'].touched">Kötelező kitölteni.</mat-error>
+      </mat-form-field>
+    </mat-card>
     <mat-form-field>
       <input type="number" placeholder="Alapterület (m2)" class="form-control" formControlName="floorArea" matInput required>
       <mat-error *ngIf="newRealEstateForm.controls['floorArea'].errors?.required && newRealEstateForm.controls['floorArea'].touched">Kötelező kitölteni.</mat-error>
@@ -66,10 +67,19 @@
       <input type="number" placeholder="Szobaszám" class="form-control" formControlName="roomCount" matInput required>
       <mat-error *ngIf="newRealEstateForm.controls['roomCount'].errors?.required && newRealEstateForm.controls['roomCount'].touched">Kötelező kitölteni.</mat-error>
     </mat-form-field>
-    <mat-checkbox formControlName="newlyBuilt" color="primary" matInput> Új építésű</mat-checkbox>
-    <mat-form-field *ngIf="newRealEstateForm.controls['newlyBuilt'].value==false">
-      <input type="number" placeholder="Építés éve" class="form-control" formControlName="constructionYear" matInput>
-    </mat-form-field>
+    <mat-card fxLayout="column">
+      <mat-checkbox formControlName="newlyBuilt" color="primary" matInput> Új építésű</mat-checkbox>
+      <mat-form-field *ngIf="newRealEstateForm.controls['newlyBuilt'].value==false">
+        <input type="number" placeholder="Építés éve" class="form-control" formControlName="constructionYear" matInput>
+      </mat-form-field>
+    </mat-card>
+    <mat-card fxLayout="column">
+      <label for="upload-btn">Fényképek feltöltése</label>
+      <input type="file" id="upload-btn" [fileUploadInputFor]="fileUploadQueue" multiple accept="image/*">
+      <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'" [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+      </mat-file-upload-queue>
+    </mat-card>
     <div layout="row">
       <button flex *ngIf="!(isLoading$ | async)" mat-raised-button>Mégse</button>
       <button flex *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="newRealEstateForm.invalid">Létrehozás</button>
