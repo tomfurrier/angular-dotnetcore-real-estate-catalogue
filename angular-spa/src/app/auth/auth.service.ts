@@ -22,7 +22,7 @@ export class AuthService {
   ) {}
 
   initAuthListener() {
-    this.authService.authState.subscribe(user => {
+    /*this.authService.authState.subscribe(user => {
       if (user) {
         this.store.dispatch(new Auth.SetAuthenticated());
         this.router.navigate(['/training']);
@@ -31,7 +31,7 @@ export class AuthService {
         this.store.dispatch(new Auth.SetUnauthenticated());
         this.router.navigate(['/login']);
       }
-    });
+    });*/
   }
 
   registerUser(authData: AuthData) {

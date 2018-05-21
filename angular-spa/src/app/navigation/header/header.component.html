@@ -7,21 +7,18 @@
     </button>
   </div>
   <div>
-    <a routerLink="/">NG FITNESS</a>
+    <a routerLink="/">Ingatlankereső</a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li *ngIf="!(isAuth$ | async)">
-        <a routerLink="/signup">Signup</a>
+        <a routerLink="/login">Bejelentkezés</a>
       </li>
-      <li *ngIf="!(isAuth$ | async)">
-        <a routerLink="/login">Login</a>
-      </li>
-      <li *ngIf="(isAuth$ | async)">
-        <a routerLink="/training">Training</a>
+      <li>
+        <a routerLink="/new-real-estate">Új hirdetés</a>
       </li>
       <li *ngIf="(isAuth$ | async)">
-        <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+        <a style="cursor: pointer;" (click)="onLogout()">Kijelentkezés</a>
       </li>
     </ul>
   </div>

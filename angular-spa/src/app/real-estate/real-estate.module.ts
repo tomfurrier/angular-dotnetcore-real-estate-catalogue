@@ -6,9 +6,16 @@ import { EditRealEstateComponent } from './edit-real-estate/edit-real-estate.com
 import { SearchComponent } from './search/search.component';
 import { ViewRealEstateComponent } from './view-real-estate/view-real-estate.component';
 import { RealEstateRoutingModule } from './real-estate-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, RealEstateRoutingModule],
+  imports: [
+    CommonModule,
+    RealEstateRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
+  ],
   declarations: [
     RealEstatesComponent,
     NewRealEstateComponent,
