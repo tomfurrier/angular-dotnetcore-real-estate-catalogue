@@ -22,13 +22,18 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
+import { FooterComponent } from './navigation/footer/footer.component';
+import { RealEstateModule } from './real-estate/real-estate.module';
+import { UserModule } from './user/user.module';
+import { MiscModule } from './misc/misc.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,10 @@ import { reducers } from './app.reducer';
     AuthModule,
     SharedModule,
     AngularFirestoreModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    RealEstateModule,
+    UserModule,
+    MiscModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]
