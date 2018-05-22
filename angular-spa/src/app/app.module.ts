@@ -6,7 +6,6 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 
-import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
@@ -26,11 +25,11 @@ import { FooterComponent } from './navigation/footer/footer.component';
 import { RealEstateModule } from './real-estate/real-estate.module';
 import { UserModule } from './user/user.module';
 import { MiscModule } from './misc/misc.module';
+import { RealEstatesComponent } from './real-estate/real-estates/real-estates.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
     FooterComponent

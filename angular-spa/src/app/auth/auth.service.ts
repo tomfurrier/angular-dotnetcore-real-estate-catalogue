@@ -22,16 +22,15 @@ export class AuthService {
   ) {}
 
   initAuthListener() {
-    /*this.authService.authState.subscribe(user => {
+    this.authService.authState.subscribe(user => {
       if (user) {
         this.store.dispatch(new Auth.SetAuthenticated());
-        this.router.navigate(['/training']);
       } else {
         this.trainingService.cancelSubscriptions();
         this.store.dispatch(new Auth.SetUnauthenticated());
-        this.router.navigate(['/login']);
       }
-    });*/
+      this.router.navigate(['']);
+    });
   }
 
   registerUser(authData: AuthData) {

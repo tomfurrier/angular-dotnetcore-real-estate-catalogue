@@ -14,7 +14,7 @@
       <li *ngIf="!(isAuth$ | async)">
         <a routerLink="/login">Bejelentkezés</a>
       </li>
-      <li>
+      <li *ngIf="(isAuth$ | async)">
         <a routerLink="/new-real-estate">Hirdetésfeladás</a>
       </li>
       <li *ngIf="(isAuth$ | async)">

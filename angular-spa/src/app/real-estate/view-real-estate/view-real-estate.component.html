@@ -1,3 +1,61 @@
-<p>
-  view-real-estate works!
-</p>
+<div class="view-real-estate" fxLayout="column" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
+
+  <mat-card class="item-card">
+    <mat-card-title>Eladó ház az 1. kerületben</mat-card-title>
+    <mat-card-subtitle>48.5 M Ft</mat-card-subtitle>
+    <img mat-card-image src="https://images.unsplash.com/photo-1490174651618-63469b221857?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e22f2fca63097c3490108b6dfd82d0a7&auto=format&fit=crop&w=800&q=80"
+      alt="Ház kép">
+    <mat-card-content>
+      <p>
+        Váralja közkedvelt utcájából, a Mátrayból kínáljuk megvételre ezt a kiváló állapotú házban lévő 68m2-es lakást. A közelmúltban
+        felújított és átalakított ingatlan egy amerikai konyhás nappalival, 2 hálószobával, 2 fürdőszobával és egy vendég
+        wc-vel rendelkezik.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button>
+        <mat-icon>perm_contact_calendar</mat-icon>
+        <span class="nav-caption"> Üzletkötő felkeresése</span>
+      </button>
+      <!-- <button mat-icon-button>
+        <mat-icon>stars</mat-icon>
+        <span class="nav-caption">Mentés</span>
+      </button> -->
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="maps-card">
+    <mat-card-title>Térkép</mat-card-title>
+    <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDyCgGomeGj1C27SNn-zKOruFfl2wX4mwk
+        &q=Budapest,+District+I." allowfullscreen>
+    </iframe>
+  </mat-card>
+  <mat-card class="details-card">
+    <section fxLayout="row">
+      <mat-card>
+        <mat-card-title>Ár</mat-card-title>
+        <mat-card-subtitle>48.5 M Forint</mat-card-subtitle>
+        <mat-card-title>Épület típusa</mat-card-title>
+        <mat-card-subtitle>téglaház</mat-card-subtitle>
+        <mat-card-title>Alapterület</mat-card-title>
+        <mat-card-subtitle>148 m2</mat-card-subtitle>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Telek nagysága</mat-card-title>
+        <mat-card-subtitle>348 m2</mat-card-subtitle>
+        <mat-card-title>Szóbák száma</mat-card-title>
+        <mat-card-subtitle>5</mat-card-subtitle>
+        <mat-card-title>Ingatlan állapota</mat-card-title>
+        <mat-card-subtitle>Felújított</mat-card-subtitle>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>Extrák</mat-card-title>
+        <mat-list>
+          <mat-list-item> Bútorozott </mat-list-item>
+          <mat-list-item> Légkondicionáló </mat-list-item>
+          <mat-list-item> Amerikai konyha </mat-list-item>
+          <mat-list-item> Gáz </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </section>
+  </mat-card>
+</div>

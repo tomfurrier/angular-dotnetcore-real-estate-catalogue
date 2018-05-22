@@ -7,12 +7,12 @@
     <mat-icon>input</mat-icon>
     <span class="nav-caption">Bejelentkezés</span>
   </a>
-  <a mat-list-item routerLink="/new-real-estate" (click)="onClose()">
-    <mat-icon>fitness_center</mat-icon>
+  <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/new-real-estate" (click)="onClose()">
+    <mat-icon>home</mat-icon>
     <span class="nav-caption">Hirdetésfeladás</span>
   </a>
   <mat-list-item>
-    <button mat-icon-button (click)="onLogout()" *ngIf="isAuth$ | async">
+    <button mat-icon-button (click)="onLogout()" *ngIf="(isAuth$ | async)">
       <mat-icon>eject</mat-icon>
       <span class="nav-caption">Kijelentkezés</span>
     </button>

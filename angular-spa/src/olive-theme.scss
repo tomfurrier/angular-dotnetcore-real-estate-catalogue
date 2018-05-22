@@ -14,7 +14,16 @@ $olive-app-theme: mat-light-theme(
   $olive-app-warn
 );
 
+@mixin mix-app-theme($olive-app-theme) {
+  // .mat-button-toggle { // background-color: mat-color($olive-app-primary);
+  // color: mat-color($olive-app-primary, default-contrast); // }
+  .mat-button-toggle-checked {
+    background-color: mat-color($olive-app-accent);
+    color: mat-color($olive-app-accent, default-contrast);
+  }
+}
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($olive-app-theme);
+@include mix-app-theme($olive-app-theme);
