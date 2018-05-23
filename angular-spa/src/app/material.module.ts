@@ -19,7 +19,8 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatSnackBarModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatStepperModule
 } from '@angular/material';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 
@@ -45,7 +46,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatPaginatorModule,
     MatSnackBarModule,
     MatFileUploadModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatStepperModule
   ],
   exports: [
     MatButtonModule,
@@ -68,7 +70,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatPaginatorModule,
     MatSnackBarModule,
     MatFileUploadModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatStepperModule
   ]
 })
 export class MaterialModule {}

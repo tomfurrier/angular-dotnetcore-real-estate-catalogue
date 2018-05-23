@@ -1,4 +1,5 @@
-mat-form-field {
+mat-form-field,
+mat-file-upload-queue {
   width: 300px;
 }
 

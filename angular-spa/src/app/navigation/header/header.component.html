@@ -9,6 +9,9 @@
   <div>
     <a routerLink="/">Ingatlankereső</a>
   </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <img src="assets/logo_64.jpg" alt="logo" width="64px" height="64px">
+  </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li *ngIf="!(isAuth$ | async)">
