@@ -51,4 +51,6 @@ export class NewRealEstateComponent implements OnInit {
 
     this.newRealEstateFourthForm = new FormGroup({});
   }
+
+  save(): void {}
 }
