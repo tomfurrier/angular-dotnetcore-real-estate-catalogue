@@ -23,7 +23,6 @@ import {
   MatStepperModule,
   MatGridListModule
 } from '@angular/material';
-import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @NgModule({
   imports: [
@@ -46,7 +45,6 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatFileUploadModule,
     MatButtonToggleModule,
     MatStepperModule,
     MatGridListModule
@@ -71,7 +69,6 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatFileUploadModule,
     MatButtonToggleModule,
     MatStepperModule,
     MatGridListModule

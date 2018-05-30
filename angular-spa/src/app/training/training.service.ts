@@ -30,9 +30,9 @@ export class TrainingService {
           return docArray.map(doc => {
             return {
               id: doc.payload.doc.id,
-              name: doc.payload.doc.data().name,
-              duration: doc.payload.doc.data().duration,
-              calories: doc.payload.doc.data().calories
+              name: (doc.payload.doc.data() as any).name,
+              duration: (doc.payload.doc.data() as any).duration,
+              calories: (doc.payload.doc.data() as any).calories
             };
           });
         })

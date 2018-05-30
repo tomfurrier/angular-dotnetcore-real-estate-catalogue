@@ -105,11 +105,11 @@
         <ng-template matStepLabel>Fényképek feltöltése</ng-template>
 
         <button mat-raised-button type="button" (click)="imgFileInput.click()">Új képek feltöltése</button>
-        <input hidden type="file" #imgFileInput multiple accept="image/*" [fileUploadInputFor]="fileUploadQueue" />
+        <!-- <input hidden type="file" #imgFileInput multiple accept="image/*" [fileUploadInputFor]="fileUploadQueue" />
         <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'" [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
           <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
 
-        </mat-file-upload-queue>
+        </mat-file-upload-queue> -->
         <div layout="row">
           <button flex *ngIf="!(isLoading$ | async)" mat-button matStepperPrevious>Vissza</button>
           <button flex *ngIf="!(isLoading$ | async)" type="submit" mat-raised-button color="primary" [disabled]="newRealEstateFourthForm.invalid"

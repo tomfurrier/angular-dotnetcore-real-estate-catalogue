@@ -29,13 +29,16 @@ import { RealEstatesComponent } from './real-estate/real-estates/real-estates.co
 import { PrimeNGModule } from './primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselBasicComponent } from './real-estate/carousel-basic/carousel-basic.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    FooterComponent
+    FooterComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { CarouselBasicComponent } from './real-estate/carousel-basic/carousel-ba
     RealEstateModule,
     UserModule,
     MiscModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    HttpClientModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]
