@@ -26,6 +26,9 @@ import { RealEstateModule } from './real-estate/real-estate.module';
 import { UserModule } from './user/user.module';
 import { MiscModule } from './misc/misc.module';
 import { RealEstatesComponent } from './real-estate/real-estates/real-estates.component';
+import { PrimeNGModule } from './primeng.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselBasicComponent } from './real-estate/carousel-basic/carousel-basic.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { RealEstatesComponent } from './real-estate/real-estates/real-estates.co
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    PrimeNGModule,
     AppRoutingModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -47,7 +51,8 @@ import { RealEstatesComponent } from './real-estate/real-estates/real-estates.co
     StoreModule.forRoot(reducers),
     RealEstateModule,
     UserModule,
-    MiscModule
+    MiscModule,
+    NgbModule.forRoot()
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]

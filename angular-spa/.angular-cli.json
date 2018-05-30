@@ -15,7 +15,13 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": ["styles.css", "olive-theme.scss"],
+      "styles": [
+        "styles.css",
+        "olive-theme.scss",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/primeng/resources/themes/darkness/theme.css"
+      ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

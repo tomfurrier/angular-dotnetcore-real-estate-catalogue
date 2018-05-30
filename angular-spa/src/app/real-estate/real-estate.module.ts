@@ -8,6 +8,7 @@ import { ViewRealEstateComponent } from './view-real-estate/view-real-estate.com
 import { RealEstateRoutingModule } from './real-estate-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CarouselBasicComponent } from './carousel-basic/carousel-basic.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NewRealEstateComponent,
     EditRealEstateComponent,
     SearchComponent,
-    ViewRealEstateComponent
+    ViewRealEstateComponent,
+    CarouselBasicComponent
   ]
 })
 export class RealEstateModule {}
