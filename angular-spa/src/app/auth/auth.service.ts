@@ -25,11 +25,12 @@ export class AuthService {
     this.authService.authState.subscribe(user => {
       if (user) {
         this.store.dispatch(new Auth.SetAuthenticated());
+        this.router.navigate(['/']);
       } else {
         this.trainingService.cancelSubscriptions();
         this.store.dispatch(new Auth.SetUnauthenticated());
+        this.router.navigate(['/login']);
       }
-      this.router.navigate(['']);
     });
   }
 
