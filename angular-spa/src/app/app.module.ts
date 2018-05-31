@@ -28,9 +28,10 @@ import { MiscModule } from './misc/misc.module';
 import { RealEstatesComponent } from './real-estate/real-estates/real-estates.component';
 import { PrimeNGModule } from './primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CarouselBasicComponent } from './real-estate/carousel-basic/carousel-basic.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CarouselBasicComponent } from './shared/carousel-basic/carousel-basic.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     SidenavListComponent,
     FooterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    CarouselBasicComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { HttpClientModule } from '@angular/common/http';
     UserModule,
     MiscModule,
     NgbModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent]

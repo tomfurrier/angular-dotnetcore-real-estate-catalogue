@@ -1,0 +1,31 @@
+<form fxLayoutGap="10px" [formGroup]="searchForm" fxLayout="row" fxLayoutAlign="center center">
+  <mat-form-field fxFlex="25%">
+    <mat-select placeholder="Ingatlan típusa" ngModel formControlName="realEstateType">
+      <mat-option [value]=realEstateTypes.flat>Lakás</mat-option>
+      <mat-option [value]=realEstateTypes.house>Ház</mat-option>
+      <mat-option [value]=realEstateTypes.rentedRoom>Albérlet</mat-option>
+      <mat-option [value]=realEstateTypes.office>Iroda</mat-option>
+      <mat-option [value]=realEstateTypes.garage>Garázs</mat-option>
+      <mat-option [value]=realEstateTypes.site>Telek</mat-option>
+      <mat-option [value]=realEstateTypes.summerHouse>Nyaraló</mat-option>
+      <mat-option [value]=realEstateTypes.agriculturalArea>Mezőgazdasági terület</mat-option>
+      <mat-option [value]=realEstateTypes.soil>Termőföld</mat-option>
+    </mat-select>
+    <mat-error *ngIf="searchForm.controls['realEstateType'].errors?.required && searchForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
+  </mat-form-field>
+  <mat-form-field fxFlex="35%">
+    <input type="text" formControlName="addressText" placeholder="Cím" matInput>
+  </mat-form-field>
+  <mat-form-field fxFlex="15%">
+    <input type="number" placeholder="Ár (M Forint)" class="form-control" formControlName="price" matInput>
+  </mat-form-field>
+  <mat-button-toggle-group fxFlex="10%" color="primary" name="intent" value="sell" fxLayout="column">
+    <mat-button-toggle value="sell">Eladó</mat-button-toggle>
+    <mat-button-toggle value="rent">Kiadó</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <a routerLink="/search" fxFlex="15%" flex mat-raised-button color="primary">
+    Keresés
+  </a>
+
+</form>

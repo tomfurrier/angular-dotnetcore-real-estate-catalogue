@@ -7,7 +7,7 @@ import { ViewRealEstateComponent } from './view-real-estate/view-real-estate.com
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: RealEstatesComponent },
+  { path: 'search', component: RealEstatesComponent },
   {
     path: 'new-real-estate',
     component: NewRealEstateComponent,

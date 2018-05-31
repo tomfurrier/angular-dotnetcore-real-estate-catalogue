@@ -1,14 +1,25 @@
-<div class="welcome" fxLayout="column" fxLayout.gt-md="row" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
-  <section>
-    <h1>ACTIVITY</h1>
-    <p>Stay active and enjoy better health and more fun!</p>
-  </section>
-  <section>
-    <h1>COMMUNITY</h1>
-    <p>Get to know other people who share your passion!</p>
-  </section>
-  <section>
-    <h1>CHALLENGES</h1>
-    <p>Never stop! Dive into new challenges every day</p>
-  </section>
+<div class="welcome" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
+  <mat-card class="carousel-card">
+    <app-carousel-basic></app-carousel-basic>
+  </mat-card>
+  <mat-card>
+    <app-real-estate-search *ngIf="showSearchPanel"></app-real-estate-search>
+    <button flex mat-raised-button color="primary" *ngIf="!showSearchPanel" (click)="showSearchPanel=true">Keresés</button>
+  </mat-card>
+  <mat-card>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+      irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <img flex fxLayoutAlign="center center" src="https://media.istockphoto.com/photos/idyllic-home-with-covered-porch-picture-id479767332?k=6&m=479767332&s=612x612&w=0&h=sOZeUL84YCIEjpDFiaBg5Wb0sQt14L5kY81smoQJCu0="
+      alt="Random first slide">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+      irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </mat-card>
 </div>

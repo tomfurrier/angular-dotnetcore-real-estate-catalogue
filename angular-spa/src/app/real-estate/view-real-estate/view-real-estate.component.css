@@ -6,6 +6,6 @@
   padding-right: 110px;
 }
 
-.view-real-estate {
-  margin: 20px 0;
+mat-card-content {
+  margin-top: 20px;
 }

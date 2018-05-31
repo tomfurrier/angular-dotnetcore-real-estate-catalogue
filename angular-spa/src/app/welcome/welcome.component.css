@@ -1,3 +1,17 @@
 .welcome {
-  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+app-carousel-basic
+  > ngb-carousel
+  > div
+  > div.carousel-item.ng-star-inserted.active
+  > img {
+  height: 400px;
+  width: 860px;
+}
+
+mat-card {
+  max-width: 908px;
 }

@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Keresés">
-  </mat-form-field>
+  <mat-card class="search-card">
+    <app-real-estate-search></app-real-estate-search>
+  </mat-card>
 </div>
 <mat-table fxLayout="column" fxLayoutAlign="center center" fxLayoutGap.gt-md="20px" [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="card">
@@ -10,8 +10,10 @@
       <mat-card class="item-card">
         <mat-card-title>Eladó ház az 1. kerületben</mat-card-title>
         <mat-card-subtitle>48.5 M Ft</mat-card-subtitle>
-        <app-carousel-basic></app-carousel-basic>
-        <!-- <p-galleria [images]="images" [showCaption]="false" panelHeight="420" frameHeight="80" frameWidth="120" [autoPlay]="false"></p-galleria> -->
+        <!-- <app-carousel-basic></app-carousel-basic>
+        <angular-image-slider [images]="imageUrls"></angular-image-slider> -->
+        <p-galleria [images]="images" [showCaption]="false" panelWidth="540" panelHeight="405" frameHeight="80" frameWidth="120"
+          [autoPlay]="false"></p-galleria>
         <!-- <mat-grid-list cols="4">
           <mat-grid-tile colspan="4" rowspan="3">
             <img mat-card-image src="https://images.unsplash.com/photo-1490174651618-63469b221857?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e22f2fca63097c3490108b6dfd82d0a7&auto=format&fit=crop&w=800&q=80"

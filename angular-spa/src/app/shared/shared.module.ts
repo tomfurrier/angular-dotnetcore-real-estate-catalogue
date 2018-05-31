@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNGModule } from '../primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchComponent } from './search/search.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     FlexLayoutModule,
     PrimeNGModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
@@ -21,7 +25,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     FlexLayoutModule,
     PrimeNGModule,
-    NgbModule
-  ]
+    NgbModule,
+    ReactiveFormsModule,
+    SearchComponent,
+    RouterModule
+  ],
+  declarations: [SearchComponent]
 })
 export class SharedModule {}
