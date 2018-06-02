@@ -1,5 +1,4 @@
 .welcome {
-  padding-top: 20px;
   padding-bottom: 20px;
 }
 
@@ -7,11 +6,18 @@ app-carousel-basic
   > ngb-carousel
   > div
   > div.carousel-item.ng-star-inserted.active
+  > a
   > img {
   height: 400px;
-  width: 860px;
+  width: 1020px;
 }
 
 mat-card {
-  max-width: 908px;
+  max-width: 1020px;
+}
+
+.top-container {
+  background-color: #efefef;
+  width: 100%;
+  padding: 20px 0;
 }

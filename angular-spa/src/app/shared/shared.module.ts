@@ -7,6 +7,7 @@ import { PrimeNGModule } from '../primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
 import { RouterModule } from '@angular/router';
+import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
 
 @NgModule({
   imports: [
@@ -27,9 +28,10 @@ import { RouterModule } from '@angular/router';
     PrimeNGModule,
     NgbModule,
     ReactiveFormsModule,
-    SearchComponent,
-    RouterModule
+    RouterModule,
+    RealEstateListComponent,
+    SearchComponent
   ],
-  declarations: [SearchComponent]
+  declarations: [SearchComponent, RealEstateListComponent]
 })
 export class SharedModule {}

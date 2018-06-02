@@ -1,0 +1,38 @@
+<mat-table fxLayout="column" fxLayoutAlign="center center" fxLayoutGap.gt-md="20px" [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="card">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>card</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-card class="item-card">
+        <mat-card-title>Eladó ház az 1. kerületben</mat-card-title>
+        <mat-card-subtitle>48.5 M Ft</mat-card-subtitle>
+
+        <p-galleria [images]="images" [showCaption]="false" panelWidth="540" panelHeight="405" frameHeight="80" frameWidth="120"
+          [autoPlay]="false"></p-galleria>
+
+        <mat-card-content>
+          <p>
+            Váralja közkedvelt utcájából, a Mátrayból kínáljuk megvételre ezt a kiváló állapotú házban lévő 68m2-es lakást. A közelmúltban
+            felújított és átalakított ingatlan egy amerikai konyhás nappalival, 2 hálószobával, 2 fürdőszobával és egy vendég
+            wc-vel rendelkezik. Lorem ipsum ...
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a routerLink="/view-real-estate">
+            <button mat-icon-button>
+              <mat-icon>details</mat-icon>
+              <span class="nav-caption"> Részletek</span>
+            </button>
+          </a>
+          <button mat-icon-button>
+            <mat-icon>stars</mat-icon>
+            <span class="nav-caption">Mentés</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-cell>
+  </ng-container>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>

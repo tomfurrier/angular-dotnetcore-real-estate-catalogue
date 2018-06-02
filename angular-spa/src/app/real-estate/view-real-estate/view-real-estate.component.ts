@@ -15,7 +15,7 @@ export class ViewRealEstateComponent implements OnInit {
 
     this.images.push({
       source:
-        'https://images.unsplash.com/photo-1490174651618-63469b221857?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e22f2fca63097c3490108b6dfd82d0a7&auto=format&fit=crop&w=600&q=80',
+        'https://images.unsplash.com/photo-1490174651618-63469b221857?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e22f2fca63097c3490108b6dfd82d0a7&auto=format&fit=crop&w=850&h=460&q=80',
       alt: 'Description for Image 1',
       title: 'Title 1'
     });
@@ -26,35 +26,35 @@ export class ViewRealEstateComponent implements OnInit {
       title: 'Title 2'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=2',
+      source: 'https://picsum.photos/850/460/?image=2',
       alt: 'Description for Image 3',
       title: 'Title 3'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=4',
+      source: 'https://picsum.photos/850/460/?image=4',
       alt: 'Description for Image 4',
       title: 'Title 4'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=5',
+      source: 'https://picsum.photos/850/460/?image=5',
 
       alt: 'Description for Image 5',
       title: 'Title 5'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=6',
+      source: 'https://picsum.photos/850/460/?image=6',
 
       alt: 'Description for Image 6',
       title: 'Title 6'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=7',
+      source: 'https://picsum.photos/850/460/?image=7',
 
       alt: 'Description for Image 7',
       title: 'Title 7'
     });
     this.images.push({
-      source: 'https://picsum.photos/540/405/?image=8',
+      source: 'https://picsum.photos/850/460/?image=8',
 
       alt: 'Description for Image 8',
       title: 'Title 8'
