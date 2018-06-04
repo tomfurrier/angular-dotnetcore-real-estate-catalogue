@@ -26,14 +26,13 @@ a:active {
   background-position: center;
   width: 130px;
   height: 130px;
-  /* border: solid 1px #343a3f;*/
   border-radius: 2px;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
-  position: absolute;
+  /* position: absolute;
   top: 10px;
-  left: 15%;
+  left: 15%; */
 }
 
 .page-title {
@@ -42,5 +41,5 @@ a:active {
 }
 
 mat-toolbar {
-  height: 84px;
+  height: 136px;
 }

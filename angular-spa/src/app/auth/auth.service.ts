@@ -3,7 +3,6 @@ import { AuthData } from './auth-data.model';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { TrainingService } from '../training/training.service';
 import { MatSnackBar } from '@angular/material';
 import { UIService } from '../shared/ui.service';
 import { Store } from '@ngrx/store';
@@ -16,7 +15,6 @@ export class AuthService {
   constructor(
     private router: Router,
     private authService: AngularFireAuth,
-    private trainingService: TrainingService,
     private uiService: UIService,
     private store: Store<fromRoot.State>
   ) {}
@@ -27,7 +25,6 @@ export class AuthService {
         this.store.dispatch(new Auth.SetAuthenticated());
         this.router.navigate(['/']);
       } else {
-        this.trainingService.cancelSubscriptions();
         this.store.dispatch(new Auth.SetUnauthenticated());
         this.router.navigate(['/login']);
       }

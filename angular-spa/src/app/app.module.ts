@@ -11,7 +11,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { AuthService } from './auth/auth.service';
-import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
@@ -21,10 +20,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
-import { FooterComponent } from './navigation/footer/footer.component';
 import { RealEstateModule } from './real-estate/real-estate.module';
 import { UserModule } from './user/user.module';
-import { MiscModule } from './misc/misc.module';
 import { RealEstatesComponent } from './real-estate/real-estates/real-estates.component';
 import { PrimeNGModule } from './primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -32,11 +29,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselBasicComponent } from './shared/carousel-basic/carousel-basic.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
+import { FooterModule } from './footer/footer.module';
+import { ContactComponent } from './navigation/header/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    ContactComponent,
     SidenavListComponent,
     FooterComponent,
     WelcomeComponent,
@@ -56,12 +57,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     StoreModule.forRoot(reducers),
     RealEstateModule,
     UserModule,
-    MiscModule,
     NgbModule.forRoot(),
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FooterModule
   ],
-  providers: [AuthService, TrainingService, UIService],
+  providers: [AuthService, UIService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

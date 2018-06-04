@@ -1,4 +1,4 @@
-<form fxLayoutGap="10px" [formGroup]="searchForm" fxLayout="row" fxLayoutAlign="center center">
+<form fxLayoutGap="10px" [formGroup]="searchForm" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
   <mat-form-field fxFlex="25%">
     <mat-select placeholder="Ingatlan típusa" ngModel formControlName="realEstateType">
       <mat-option [value]=realEstateTypes.flat>Lakás</mat-option>
@@ -22,7 +22,7 @@
   <mat-form-field fxFlex="10%">
     <input type="number" placeholder="Max Ár" class="form-control" formControlName="price" matInput>
   </mat-form-field>
-  <mat-button-toggle-group fxFlex="8%" color="primary" name="intent" value="sell" fxLayout="column">
+  <mat-button-toggle-group fxFlex="8%" color="primary" name="intent" value="sell" fxLayout="column" fxLayout.lt-sm="row">
     <mat-button-toggle value="sell">Eladó</mat-button-toggle>
     <mat-button-toggle value="rent">Kiadó</mat-button-toggle>
   </mat-button-toggle-group>

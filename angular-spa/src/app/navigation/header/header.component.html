@@ -6,7 +6,7 @@
       </mat-icon>
     </button>
   </div>
-  <div fxFlex fxLayout>
+  <div fxFlex fxLayout fxLayoutAlign="center center">
     <a routerLink="/" alt="logo" class="logo-img"></a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="center center">
@@ -14,11 +14,11 @@
       <h1 class="page-title">Ász-Ingatlan.com</h1>
     </a>
   </div>
-  <div fxFlex fxLayout fxHide.xs>
+  <div fxFlex fxLayout fxHide.xs fxLayoutAlign="center center">
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-      <!-- <li *ngIf="!(isAuth$ | async)">
-        <a routerLink="/login">Bejelentkezés</a>
-      </li> -->
+      <li>
+        <a routerLink="/contact">Kapcsolat</a>
+      </li>
       <li *ngIf="(isAuth$ | async)">
         <a routerLink="/new-real-estate">Hirdetésfeladás</a>
       </li>
