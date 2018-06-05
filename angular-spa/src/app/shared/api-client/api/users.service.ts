@@ -268,7 +268,8 @@ export class UsersService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<any>(`${this.basePath}/users/login`,
+        return this.httpClient.post<any>(`${this.basePath}/users/login`,
+            null,
             {
                 params: queryParameters,
                 headers: headers,

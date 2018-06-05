@@ -21,12 +21,26 @@ export interface RealEstate {
     intent?: RealEstate.IntentEnum;
     title: string;
     price: number;
-    address: string;
+    city: string;
+    zipCode: number;
+    district?: number;
+    street: string;
+    addressNum: string;
     floorArea: number;
     lotSize?: number;
     roomCount: string;
     photoUrls: Array<string>;
-    constructionDate?: string;
+    newlyBuilt?: boolean;
+    constructionYear?: number;
+    /**
+     * Real estate type
+     */
+    realEstateType?: RealEstate.RealEstateTypeEnum;
+    description: string;
+    /**
+     * Real estate selling status in the catalogue
+     */
+    sellingStatus?: RealEstate.SellingStatusEnum;
     tags?: Array<Tag>;
 }
 export namespace RealEstate {
@@ -34,5 +48,22 @@ export namespace RealEstate {
     export const IntentEnum = {
         Rent: 'rent' as IntentEnum,
         Buy: 'buy' as IntentEnum
+    }
+    export type RealEstateTypeEnum = 'flat' | 'house' | 'rentedRoom' | 'office' | 'garage' | 'site' | 'summerHouse' | 'agriculturalArea' | 'soil';
+    export const RealEstateTypeEnum = {
+        Flat: 'flat' as RealEstateTypeEnum,
+        House: 'house' as RealEstateTypeEnum,
+        RentedRoom: 'rentedRoom' as RealEstateTypeEnum,
+        Office: 'office' as RealEstateTypeEnum,
+        Garage: 'garage' as RealEstateTypeEnum,
+        Site: 'site' as RealEstateTypeEnum,
+        SummerHouse: 'summerHouse' as RealEstateTypeEnum,
+        AgriculturalArea: 'agriculturalArea' as RealEstateTypeEnum,
+        Soil: 'soil' as RealEstateTypeEnum
+    }
+    export type SellingStatusEnum = 'available' | 'sold';
+    export const SellingStatusEnum = {
+        Available: 'available' as SellingStatusEnum,
+        Sold: 'sold' as SellingStatusEnum
     }
 }

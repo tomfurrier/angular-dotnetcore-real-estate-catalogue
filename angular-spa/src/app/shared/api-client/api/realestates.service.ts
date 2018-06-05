@@ -20,7 +20,6 @@ import '../rxjs-operators';
 
 import { ApiResponse } from '../model/apiResponse';
 import { RealEstate } from '../model/realEstate';
-import { RealEstateDetails } from '../model/realEstateDetails';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -64,7 +63,7 @@ export class RealestatesService {
      * 
      * @param body Property object that needs to be added to the catalogue
      */
-    public addRealEstate(body: RealEstateDetails): Observable<{}> {
+    public addRealEstate(body: RealEstate): Observable<{}> {
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling addRealEstate.');
         }
@@ -238,7 +237,7 @@ export class RealestatesService {
      * Returns a single real estate
      * @param realestateId id of real estate to return
      */
-    public getRealEstateById(realestateId: number): Observable<RealEstateDetails> {
+    public getRealEstateById(realestateId: number): Observable<RealEstate> {
         if (realestateId === null || realestateId === undefined) {
             throw new Error('Required parameter realestateId was null or undefined when calling getRealEstateById.');
         }
@@ -279,7 +278,7 @@ export class RealestatesService {
      * 
      * @param body Real Estate object that needs to be updated the catalogue
      */
-    public updateRealEstate(body: RealEstateDetails): Observable<{}> {
+    public updateRealEstate(body: RealEstate): Observable<{}> {
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling updateRealEstate.');
         }

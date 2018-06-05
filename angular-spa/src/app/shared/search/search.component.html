@@ -1,6 +1,6 @@
-<form fxLayoutGap="10px" [formGroup]="searchForm" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+<form fxLayoutGap="10px" [formGroup]="searchForm" (ngSubmit)="onSearch()" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
   <mat-form-field fxFlex="25%">
-    <mat-select placeholder="Ingatlan típusa" ngModel formControlName="realEstateType">
+    <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" (change)="onTypeFilterChange($event)">
       <mat-option [value]=realEstateTypes.flat>Lakás</mat-option>
       <mat-option [value]=realEstateTypes.house>Ház</mat-option>
       <mat-option [value]=realEstateTypes.rentedRoom>Albérlet</mat-option>
@@ -11,24 +11,23 @@
       <mat-option [value]=realEstateTypes.agriculturalArea>Mezőgazdasági terület</mat-option>
       <mat-option [value]=realEstateTypes.soil>Termőföld</mat-option>
     </mat-select>
-    <mat-error *ngIf="searchForm.controls['realEstateType'].errors?.required && searchForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
   </mat-form-field>
   <mat-form-field fxFlex="35%">
-    <input type="text" formControlName="addressText" placeholder="Cím" matInput>
+    <input type="text" formControlName="addressText" placeholder="Cím" matInput (change)="onAddressChange($event.target.value)">
   </mat-form-field>
   <mat-form-field fxFlex="10%">
-    <input type="number" placeholder="Min Ár" class="form-control" formControlName="price" matInput>
+    <input type="number" placeholder="Min Ár" class="form-control" formControlName="minPrice" matInput (change)="onMinPriceChange($event.target.value)">
   </mat-form-field>
   <mat-form-field fxFlex="10%">
-    <input type="number" placeholder="Max Ár" class="form-control" formControlName="price" matInput>
+    <input type="number" placeholder="Max Ár" class="form-control" formControlName="maxPrice" matInput (change)="onMaxPriceChange($event.target.value)">
   </mat-form-field>
-  <mat-button-toggle-group fxFlex="8%" color="primary" name="intent" value="sell" fxLayout="column" fxLayout.lt-sm="row">
+  <mat-button-toggle-group fxFlex="8%" color="primary" name="intent" value="sell" fxLayout="column" fxLayout.lt-sm="row" (change)="onIntentChange($event.value)">
     <mat-button-toggle value="sell">Eladó</mat-button-toggle>
     <mat-button-toggle value="rent">Kiadó</mat-button-toggle>
   </mat-button-toggle-group>
 
-  <a routerLink="/search" fxFlex="15%" flex mat-raised-button color="primary">
+  <button type="submit" fxFlex="15%" flex mat-raised-button color="primary">
     Keresés
-  </a>
+  </button>
 
 </form>

@@ -32,6 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { FooterModule } from './footer/footer.module';
 import { ContactComponent } from './navigation/header/contact/contact.component';
+import { SearchService } from './shared/search/search.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { ContactComponent } from './navigation/header/contact/contact.component'
     ReactiveFormsModule,
     FooterModule
   ],
-  providers: [AuthService, UIService],
+  providers: [AuthService, UIService, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

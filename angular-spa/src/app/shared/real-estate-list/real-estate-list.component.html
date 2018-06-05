@@ -1,19 +1,17 @@
 <mat-table fxLayout="column" fxLayoutAlign="center center" fxLayoutGap.gt-md="20px" [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="card">
     <mat-header-cell *matHeaderCellDef mat-sort-header>card</mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-cell *matCellDef="let realEstate">
       <mat-card class="item-card">
-        <mat-card-title>Eladó ház az 1. kerületben</mat-card-title>
-        <mat-card-subtitle>48.5 M Ft</mat-card-subtitle>
+        <mat-card-title>{{realEstate.title}}</mat-card-title>
+        <mat-card-subtitle>{{realEstate.price}} Ft</mat-card-subtitle>
 
-        <p-galleria [images]="images" [showCaption]="false" panelWidth="540" panelHeight="405" frameHeight="80" frameWidth="120"
-          [autoPlay]="false"></p-galleria>
+        <p-galleria [images]="getImageDataFromUrl(realEstate.photoUrls)" [showCaption]="false" panelWidth="540" panelHeight="405"
+          frameHeight="80" frameWidth="120" [autoPlay]="false"></p-galleria>
 
         <mat-card-content>
           <p>
-            Váralja közkedvelt utcájából, a Mátrayból kínáljuk megvételre ezt a kiváló állapotú házban lévő 68m2-es lakást. A közelmúltban
-            felújított és átalakított ingatlan egy amerikai konyhás nappalival, 2 hálószobával, 2 fürdőszobával és egy vendég
-            wc-vel rendelkezik. Lorem ipsum ...
+            {{realEstate.description}}
           </p>
         </mat-card-content>
         <mat-card-actions>
