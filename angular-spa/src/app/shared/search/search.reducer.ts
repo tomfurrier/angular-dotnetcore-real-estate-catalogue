@@ -20,8 +20,6 @@ const initialState: State = {
 };
 
 export function searchReducer(state = initialState, action: SearchActions) {
-  console.log('searchreducer. action: ' + JSON.stringify(action));
-
   let result: any;
 
   switch (action.type) {
@@ -80,7 +78,6 @@ export function searchReducer(state = initialState, action: SearchActions) {
       return state;
   }
 
-  console.log('result: ' + JSON.stringify(result));
   return result;
 }
 

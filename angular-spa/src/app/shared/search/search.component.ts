@@ -23,9 +23,10 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.searchForm = new FormGroup({
       realEstateType: new FormControl(''),
-      addressText: new FormControl(''),
+      address: new FormControl(''),
       minPrice: new FormControl(''),
-      maxPrice: new FormControl('')
+      maxPrice: new FormControl(''),
+      intent: new FormControl('')
     });
   }
 

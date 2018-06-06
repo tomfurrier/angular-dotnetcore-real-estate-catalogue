@@ -45,31 +45,67 @@ export class RealEstateListComponent
     this.store
       .select(fromRoot.getSearchFilter)
       .subscribe((searchFilter: SearchFilter) => {
-        console.log('searchFilter: ' + searchFilter);
         this.searchFilter = searchFilter;
         this.dataSource.filter = this.dataSource.filter === '1' ? '2' : '1'; // to trigger filtering
       });
 
     this.dataSource.filterPredicate = (data: RealEstate, filter: string) => {
-      console.log('filtering..');
-      if (!this.searchFilter) return null;
+      if (!this.searchFilter) {
+        return true;
+      }
+      console.log('================= new filtering=============');
+
+      console.log('filterPredicate: ' + JSON.stringify(this.searchFilter));
+      console.log('data: ' + JSON.stringify(data));
+
       const lowerCaseAddress = this.searchFilter.address
         ? this.searchFilter.address.toLocaleLowerCase()
         : null;
-      return (
+
+      const realestateTypeMatches =
         this.searchFilter.type === null ||
-        this.searchFilter.type === data.realEstateType ||
-        (this.searchFilter.address === null ||
-          data.city.toLocaleLowerCase().indexOf(lowerCaseAddress) === -1 ||
-          data.street.toLocaleLowerCase().indexOf(lowerCaseAddress) === -1 ||
-          data.district === parseInt(lowerCaseAddress, 10) ||
-          (this.searchFilter.minPrice === null ||
-            data.price >= this.searchFilter.minPrice) ||
-          (this.searchFilter.maxPrice === null ||
-            data.price <= this.searchFilter.maxPrice) ||
-          (this.searchFilter.intent === null ||
-            this.searchFilter.intent === data.intent))
+        this.searchFilter.type === data.realEstateType;
+
+      const addressMatches =
+        !this.searchFilter.address ||
+        data.city.toLocaleLowerCase().indexOf(lowerCaseAddress) !== -1 ||
+        data.street.toLocaleLowerCase().indexOf(lowerCaseAddress) !== -1 ||
+        data.district === parseInt(lowerCaseAddress, 10);
+
+      const multipliedMinPrice = this.searchFilter.minPrice * 1000000;
+      const multipliedMaxPrice = this.searchFilter.maxPrice * 1000000;
+
+      const minPriceMatches =
+        this.searchFilter.minPrice === null || data.price >= multipliedMinPrice;
+      const maxPriceMatches =
+        this.searchFilter.maxPrice === null || data.price <= multipliedMaxPrice;
+
+      const intentMatches =
+        !this.searchFilter.intent || this.searchFilter.intent === data.intent;
+
+      const result =
+        realestateTypeMatches &&
+        addressMatches &&
+        minPriceMatches &&
+        maxPriceMatches &&
+        intentMatches;
+
+      console.log(
+        'Filtering: realestateTypeMatches: ' +
+          realestateTypeMatches +
+          ' ,  addressMatches: ' +
+          addressMatches +
+          ' , minPriceMatches: ' +
+          minPriceMatches +
+          ' , maxPriceMatches: ' +
+          maxPriceMatches +
+          ' , intentMatches: ' +
+          intentMatches +
+          ' ,result: ' +
+          result
       );
+
+      return result;
     };
 
     this.dataSource.data = [
@@ -86,11 +122,48 @@ export class RealEstateListComponent
         floorArea: 34.5,
         price: 242423,
         roomCount: '3+1',
-        title: 'Eladó ház IX kerület',
+        title: 'Eladó ház Budapest, IX kerület',
         photoUrls: [
           'https://picsum.photos/540/405/?image=2',
           'https://picsum.photos/540/405/?image=4',
           'https://picsum.photos/540/405/?image=5'
+        ]
+      },
+      {
+        city: 'Szentes',
+        addressNum: '1234/4',
+        description: 'min 1 évre',
+        intent: RealEstate.IntentEnum.Rent,
+        street: 'Pitypang utca',
+        zipCode: 1234,
+        constructionYear: 2016,
+        floorArea: 34.5,
+        price: 12000000,
+        roomCount: '3+1',
+        title: 'Kiadó ház Szentes',
+        photoUrls: [
+          'https://picsum.photos/540/405/?image=7',
+          'https://picsum.photos/540/405/?image=11',
+          'https://picsum.photos/540/405/?image=9'
+        ]
+      },
+      {
+        city: 'Szentes',
+        addressNum: '12342/4',
+        description: 'Kis eladó ház',
+        district: 9,
+        intent: RealEstate.IntentEnum.Buy,
+        street: 'kossuth utca',
+        zipCode: 5164,
+        constructionYear: 2014,
+        floorArea: 54.5,
+        price: 22000000,
+        roomCount: '3+2',
+        title: 'Eladó ház Szentes',
+        photoUrls: [
+          'https://picsum.photos/540/405/?image=12',
+          'https://picsum.photos/540/405/?image=10',
+          'https://picsum.photos/540/405/?image=3'
         ]
       }
     ];

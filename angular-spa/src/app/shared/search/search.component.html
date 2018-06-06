@@ -1,5 +1,5 @@
 <form fxLayoutGap="10px" [formGroup]="searchForm" (ngSubmit)="onSearch()" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
-  <mat-form-field fxFlex="25%">
+  <mat-form-field fxFlex="19%">
     <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" (change)="onTypeFilterChange($event)">
       <mat-option [value]=realEstateTypes.flat>Lakás</mat-option>
       <mat-option [value]=realEstateTypes.house>Ház</mat-option>
@@ -13,16 +13,16 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field fxFlex="35%">
-    <input type="text" formControlName="addressText" placeholder="Cím" matInput (change)="onAddressChange($event.target.value)">
+    <input type="text" formControlName="address" placeholder="Cím" matInput (change)="onAddressChange($event.target.value)">
   </mat-form-field>
-  <mat-form-field fxFlex="10%">
-    <input type="number" placeholder="Min Ár" class="form-control" formControlName="minPrice" matInput (change)="onMinPriceChange($event.target.value)">
+  <mat-form-field fxFlex="13%">
+    <input type="number" placeholder="Min Ár (M Ft)" class="form-control" formControlName="minPrice" matInput (change)="onMinPriceChange($event.target.value)">
   </mat-form-field>
-  <mat-form-field fxFlex="10%">
-    <input type="number" placeholder="Max Ár" class="form-control" formControlName="maxPrice" matInput (change)="onMaxPriceChange($event.target.value)">
+  <mat-form-field fxFlex="13%">
+    <input type="number" placeholder="Max Ár (M Ft)" class="form-control" formControlName="maxPrice" matInput (change)="onMaxPriceChange($event.target.value)">
   </mat-form-field>
-  <mat-button-toggle-group fxFlex="8%" color="primary" name="intent" value="sell" fxLayout="column" fxLayout.lt-sm="row" (change)="onIntentChange($event.value)">
-    <mat-button-toggle value="sell">Eladó</mat-button-toggle>
+  <mat-button-toggle-group fxFlex="8%" color="primary" formControlName="intent" fxLayout="column" fxLayout.lt-sm="row" (change)="onIntentChange($event.value)">
+    <mat-button-toggle value="buy">Eladó</mat-button-toggle>
     <mat-button-toggle value="rent">Kiadó</mat-button-toggle>
   </mat-button-toggle-group>
 
