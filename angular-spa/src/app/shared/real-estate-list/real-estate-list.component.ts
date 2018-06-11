@@ -76,9 +76,9 @@ export class RealEstateListComponent
       const multipliedMaxPrice = this.searchFilter.maxPrice * 1000000;
 
       const minPriceMatches =
-        this.searchFilter.minPrice === null || data.price >= multipliedMinPrice;
+        !this.searchFilter.minPrice || data.price >= multipliedMinPrice;
       const maxPriceMatches =
-        this.searchFilter.maxPrice === null || data.price <= multipliedMaxPrice;
+        !this.searchFilter.maxPrice || data.price <= multipliedMaxPrice;
 
       const intentMatches =
         !this.searchFilter.intent || this.searchFilter.intent === data.intent;
@@ -89,6 +89,15 @@ export class RealEstateListComponent
         minPriceMatches &&
         maxPriceMatches &&
         intentMatches;
+
+      console.log(
+        'data.price ' +
+          data.price +
+          ',multipliedMaxPrice: ' +
+          multipliedMaxPrice +
+          ', multipliedMinPrice: ' +
+          multipliedMinPrice
+      );
 
       console.log(
         'Filtering: realestateTypeMatches: ' +
@@ -120,7 +129,7 @@ export class RealEstateListComponent
         zipCode: 1234,
         constructionYear: 2016,
         floorArea: 34.5,
-        price: 242423,
+        price: 24.5,
         roomCount: '3+1',
         title: 'Eladó ház Budapest, IX kerület',
         photoUrls: [
@@ -138,7 +147,7 @@ export class RealEstateListComponent
         zipCode: 1234,
         constructionYear: 2016,
         floorArea: 34.5,
-        price: 12000000,
+        price: 43,
         roomCount: '3+1',
         title: 'Kiadó ház Szentes',
         photoUrls: [
@@ -157,7 +166,7 @@ export class RealEstateListComponent
         zipCode: 5164,
         constructionYear: 2014,
         floorArea: 54.5,
-        price: 22000000,
+        price: 45.7,
         roomCount: '3+2',
         title: 'Eladó ház Szentes',
         photoUrls: [

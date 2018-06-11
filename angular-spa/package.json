@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "ng serve --configuration=dev"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +26,8 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+    "@ngrx/effects": "^6.0.1",
+    "@ngrx/entity": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "angular-image-slider": "0.0.8",
     "angular-material-fileupload": "0.0.11",
