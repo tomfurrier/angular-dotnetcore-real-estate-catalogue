@@ -3,9 +3,13 @@ a {
   color: white;
 }
 
-a:hover,
+/* a:hover,
 a:active {
   color: green;
+} */
+
+a.email {
+  color: black;
 }
 
 .navigation-items {
@@ -36,10 +40,14 @@ a:active {
 }
 
 .page-title {
-  font-size: 1.8em;
-  line-height: 2.3em;
+  font-size: 2.5em;
+  line-height: 2.6em;
 }
 
 mat-toolbar {
   height: 136px;
+}
+
+.contact-card {
+  margin-left: 10px;
 }

@@ -17,7 +17,16 @@
   <div fxFlex fxLayout fxHide.xs fxLayoutAlign="center center">
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li>
-        <a routerLink="/contact">Kapcsolat</a>
+        <mat-card class="contact-card">
+          <mat-card-content>
+            <b>Telefonszám: </b>
+            <span>06-20-404-5171</span>
+          </mat-card-content>
+          <mat-card-content>
+            <b>E-mail: </b>
+            <a class="email" href="mailto:info@asz-ingatlan.com">info@asz-ingatlan.com</a>
+          </mat-card-content>
+        </mat-card>
       </li>
       <li *ngIf="(isAuth$ | async)">
         <a routerLink="/new-real-estate">Hirdetésfeladás</a>
