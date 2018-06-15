@@ -33,6 +33,26 @@ import { FooterComponent } from './footer/footer.component';
 import { FooterModule } from './footer/footer.module';
 import { ContactComponent } from './navigation/header/contact/contact.component';
 import { SearchService } from './shared/search/search.service';
+import {
+  NgcCookieConsentModule,
+  NgcCookieConsentConfig
+} from 'ngx-cookieconsent';
+
+const cookieConfig: NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
 @NgModule({
   declarations: [
@@ -61,7 +81,8 @@ import { SearchService } from './shared/search/search.service';
     NgbModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    FooterModule
+    FooterModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [AuthService, UIService, SearchService],
   bootstrap: [AppComponent]
