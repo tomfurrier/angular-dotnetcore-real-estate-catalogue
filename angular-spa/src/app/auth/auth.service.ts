@@ -26,7 +26,9 @@ export class AuthService {
         this.router.navigate(['/']);
       } else {
         this.store.dispatch(new Auth.SetUnauthenticated());
-        this.router.navigate(['/login']);
+        if (window.location.pathname !== '/') {
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
