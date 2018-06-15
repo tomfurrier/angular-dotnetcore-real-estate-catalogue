@@ -1,11 +1,11 @@
-<div class="welcome" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
+<div class="welcome" [@fadeInOut] fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
   <section fxFlex="shrink" class="top-container" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="20px">
     <!-- <mat-card class="carousel-card"> -->
     <app-carousel-basic fxFlex="shrink"></app-carousel-basic>
     <!-- </mat-card> -->
     <!-- <mat-card> -->
     <app-real-estate-search *ngIf="showSearchPanel"></app-real-estate-search>
-    <button flex mat-raised-button color="primary" *ngIf="!showSearchPanel" (click)="showSearchPanel=true">Keresés</button>
+    <button class="search-button" flex mat-raised-button color="primary" *ngIf="!showSearchPanel" (click)="showSearchPanel=true">Keresés</button>
     <!-- </mat-card> -->
   </section>
   <app-real-estate-list></app-real-estate-list>

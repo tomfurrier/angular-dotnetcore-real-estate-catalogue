@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "ng serve --configuration=dev"
+    "dev": "ng serve --configuration=dev",
+    "prod": "ng serve --configuration=production"
   },
   "private": true,
   "dependencies": {

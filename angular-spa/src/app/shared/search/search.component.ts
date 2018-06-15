@@ -8,11 +8,25 @@ import {
 import { RealEstateType } from '../../real-estate/real-estate-type';
 import { SearchService } from './search.service';
 import { SearchFilter } from './searchFilter.model';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-real-estate-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        // :enter is alias to 'void => *'
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        // :leave is alias to '* => void'
+        animate(500, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class SearchComponent implements OnInit {
   realEstateTypes = RealEstateType;

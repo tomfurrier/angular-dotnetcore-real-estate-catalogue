@@ -21,3 +21,11 @@ mat-card {
   width: 100%;
   padding: 20px 0;
 }
+
+.search-button {
+  min-width: 120px;
+  line-height: 60px;
+  font-weight: bold;
+  font-size: large;
+  transition: visibility 0s linear 1.33s, opacity 1.33s linear;
+}

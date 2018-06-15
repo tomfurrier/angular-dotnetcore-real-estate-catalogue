@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchComponent } from './search/search.component';
 import { RouterModule } from '@angular/router';
 import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { RealEstateListComponent } from './real-estate-list/real-estate-list.com
     PrimeNGModule,
     NgbModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule
   ],
   exports: [
     CommonModule,

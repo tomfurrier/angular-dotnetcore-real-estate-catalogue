@@ -1,4 +1,5 @@
-<form fxLayoutGap="10px" [formGroup]="searchForm" (ngSubmit)="onSearch()" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+<form [@fadeInOut] fxLayoutGap="10px" [formGroup]="searchForm" (ngSubmit)="onSearch()" fxLayout="row" fxLayout.lt-sm="column"
+  fxLayoutAlign="center center">
   <mat-form-field fxFlex="19%">
     <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" (change)="onTypeFilterChange($event)">
       <mat-option [value]=realEstateTypes.flat>Lakás</mat-option>
