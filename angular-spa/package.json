@@ -32,6 +32,7 @@
     "@ngrx/store": "^6.0.1",
     "angular-image-slider": "0.0.8",
     "angular-material-fileupload": "0.0.11",
+    "angular2-cookie-law": "^6.0.4",
     "angularfire2": "^5.0.0-rc.10",
     "core-js": "^2.5.7",
     "firebase": "^5.0.4",

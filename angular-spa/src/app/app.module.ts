@@ -33,6 +33,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FooterModule } from './footer/footer.module';
 import { ContactComponent } from './navigation/header/contact/contact.component';
 import { SearchService } from './shared/search/search.service';
+import { CookieLawModule } from 'angular2-cookie-law';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SearchService } from './shared/search/search.service';
     NgbModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    FooterModule
+    FooterModule,
+    CookieLawModule
   ],
   providers: [AuthService, UIService, SearchService],
   bootstrap: [AppComponent]
