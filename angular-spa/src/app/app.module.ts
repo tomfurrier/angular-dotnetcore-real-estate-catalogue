@@ -33,10 +33,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FooterModule } from './footer/footer.module';
 import { ContactComponent } from './navigation/header/contact/contact.component';
 import { SearchService } from './shared/search/search.service';
-import {
-  NgcCookieConsentModule,
-  NgcCookieConsentConfig
-} from 'ngx-cookieconsent';
+import { CookieLawModule } from 'angular2-cookie-law';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -82,7 +79,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     HttpClientModule,
     ReactiveFormsModule,
     FooterModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    CookieLawModule
   ],
   providers: [AuthService, UIService, SearchService],
   bootstrap: [AppComponent]
