@@ -34,6 +34,7 @@ import { FooterModule } from './footer/footer.module';
 import { ContactComponent } from './navigation/header/contact/contact.component';
 import { SearchService } from './shared/search/search.service';
 import { CookieLawModule } from 'angular2-cookie-law';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CookieLawModule } from 'angular2-cookie-law';
     HttpClientModule,
     ReactiveFormsModule,
     FooterModule,
-    CookieLawModule
+    CookieLawModule,
+    NgxImageGalleryModule
   ],
   providers: [AuthService, UIService, SearchService],
   bootstrap: [AppComponent]

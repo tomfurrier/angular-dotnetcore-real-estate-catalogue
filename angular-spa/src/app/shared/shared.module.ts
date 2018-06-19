@@ -9,6 +9,7 @@ import { SearchComponent } from './search/search.component';
 import { RouterModule } from '@angular/router';
 import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     ReactiveFormsModule,
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxImageGalleryModule
   ],
   exports: [
     CommonModule,
