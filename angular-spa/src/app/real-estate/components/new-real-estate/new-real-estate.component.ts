@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RealEstateType } from '../real-estate-type';
+import { RealEstateType } from '../../real-estate-type';
 import {
   FormGroup,
   FormBuilder,

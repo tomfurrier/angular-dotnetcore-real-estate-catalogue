@@ -22,7 +22,6 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
 import { RealEstateModule } from './real-estate/real-estate.module';
 import { UserModule } from './user/user.module';
-import { RealEstatesComponent } from './real-estate/real-estates/real-estates.component';
 import { PrimeNGModule } from './primeng.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WelcomeComponent } from './welcome/welcome.component';
