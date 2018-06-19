@@ -4,28 +4,28 @@
     <mat-cell *matCellDef="let realEstate">
       <mat-card class="item-card">
         <mat-card-title>{{realEstate.title}}</mat-card-title>
-        <mat-card-subtitle>{{realEstate.price}} M Ft</mat-card-subtitle>
-
-        <ngb-carousel>
-          <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
-
-            <a *ngIf="mediaUrl.type === 'image'" (click)="openGallery()">
-              <img [src]="mediaUrl.url" alt="Random first slide">
-              <div class="carousel-caption">
-              </div>
-            </a>
-            <iframe *ngIf="mediaUrl.type === 'video'" width="560" height="315" [src]="mediaUrl.url" frameborder="0" allow="autoplay; encrypted-media"
-              allowfullscreen></iframe>
-          </ng-template>
-        </ngb-carousel>
-
-        <ngx-image-gallery [images]="images" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onImageClicked)="galleryImageClicked($event)"
-          (onImageChange)="galleryImageChanged($event)" (onDelete)="deleteImage($event)"></ngx-image-gallery>
+        <mat-card-subtitle>
+          <b>{{realEstate.price}} M Ft</b>
+        </mat-card-subtitle>
 
         <mat-card-content>
-          <p>
-            {{realEstate.description}}
-          </p>
+
+          <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
+
+              <a *ngIf="mediaUrl.type === 'image'" (click)="openGallery()">
+                <img [src]="mediaUrl.url" alt="Random first slide">
+                <div class="carousel-caption">
+                </div>
+              </a>
+              <iframe *ngIf="mediaUrl.type === 'video'" width="560" height="315" [src]="mediaUrl.url" frameborder="0" allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+            </ng-template>
+          </ngb-carousel>
+
+          <ngx-image-gallery [images]="images" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onImageClicked)="galleryImageClicked($event)"
+            (onImageChange)="galleryImageChanged($event)" (onDelete)="deleteImage($event)"></ngx-image-gallery>
+
         </mat-card-content>
         <mat-card-actions>
           <a routerLink="/view-real-estate">
