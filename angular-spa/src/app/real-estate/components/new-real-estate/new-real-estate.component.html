@@ -28,7 +28,7 @@
           <mat-error *ngIf="newRealEstateFirstForm.controls['realEstateType'].errors?.required && newRealEstateFirstForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="number" placeholder="Ár (HUF)" class="form-control" formControlName="price" matInput required>
+          <input type="number" placeholder="Ár (M Ft)" class="form-control" formControlName="price" matInput required>
           <mat-error *ngIf="newRealEstateFirstForm.controls['price'].errors?.required && newRealEstateFirstForm.controls['price'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>
         <mat-button-toggle-group color="primary" aria-label="Hirdetés célja" name="intent" value="sell">
@@ -112,7 +112,8 @@
         </mat-file-upload-queue> -->
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
-          <button flex type="submit" mat-raised-button color="primary" [disabled]="newRealEstateFourthForm.invalid" (click)="save()">Mentés</button>
+          <button flex type="submit" mat-raised-button color="primary" [disabled]="newRealEstateFirstForm.invalid || newRealEstateSecondForm.invalid || newRealEstateThirdForm.invalid || newRealEstateFourthForm.invalid"
+            (click)="save()">Mentés</button>
         </div>
       </form>
     </mat-step>
