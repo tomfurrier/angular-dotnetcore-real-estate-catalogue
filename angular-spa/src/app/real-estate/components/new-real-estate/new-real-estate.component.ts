@@ -78,8 +78,6 @@ export class NewRealEstateComponent implements OnInit {
       ]
     } as RealEstate;
 
-    console.log('save');
-
     this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
   }
 }
