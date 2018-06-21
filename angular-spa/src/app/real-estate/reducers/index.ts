@@ -150,6 +150,7 @@ export const getRealEstateCollection = createSelector(
   getRealEstateEntities,
   getCollectionRealEstateIds,
   (entities, ids) => {
+    console.log('ADFASDF');
     return ids.map(id => entities[id]);
   }
 );

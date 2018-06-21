@@ -7,6 +7,11 @@ import {
   FormControl
 } from '@angular/forms';
 
+import * as fromRealEstates from '../../reducers';
+import { Store } from '@ngrx/store';
+import * as CollectionActions from '../../actions/collection.actions';
+import { RealEstate } from '../../../shared/api-client';
+
 @Component({
   selector: 'app-new-real-estate',
   templateUrl: './new-real-estate.component.html',
@@ -18,7 +23,8 @@ export class NewRealEstateComponent implements OnInit {
   newRealEstateSecondForm: FormGroup;
   newRealEstateThirdForm: FormGroup;
   newRealEstateFourthForm: FormGroup;
-  constructor() {}
+
+  constructor(private store: Store<fromRealEstates.State>) {}
 
   ngOnInit() {
     this.createForm();
@@ -52,5 +58,28 @@ export class NewRealEstateComponent implements OnInit {
     this.newRealEstateFourthForm = new FormGroup({});
   }
 
-  save(): void {}
+  save(): void {
+    const newRealEstate = {
+      city: 'Szentes',
+      addressNum: '1234/4',
+      description: 'min 1 évre',
+      intent: RealEstate.IntentEnum.Rent,
+      street: 'Pitypang utca',
+      zipCode: 1234,
+      constructionYear: 2016,
+      floorArea: 34.5,
+      price: 43,
+      roomCount: '3+1',
+      title: 'Kiadó ház Szentes',
+      mediaUrls: [
+        'https://picsum.photos/540/405/?image=7',
+        'https://picsum.photos/540/405/?image=11',
+        'https://picsum.photos/540/405/?image=9'
+      ]
+    } as RealEstate;
+
+    console.log('save');
+
+    this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
+  }
 }

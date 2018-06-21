@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { defer, Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+  tap
+} from 'rxjs/operators';
 
 import {
   AddRealEstate,
@@ -17,6 +24,7 @@ import {
 } from './../actions/collection.actions';
 import { RealEstate, RealestatesService } from '../../shared/api-client';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 
 @Injectable()
 export class CollectionEffects {
