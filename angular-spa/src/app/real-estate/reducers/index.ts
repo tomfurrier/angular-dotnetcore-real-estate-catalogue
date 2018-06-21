@@ -45,7 +45,7 @@ export const reducers: ActionReducerMap<RealEstatesState> = {
  * This is used for selecting feature states that are loaded eagerly or lazily.
  */
 export const getRealEstatesState = createFeatureSelector<RealEstatesState>(
-  'RealEstates'
+  'realEstates'
 );
 
 /**
@@ -150,7 +150,6 @@ export const getRealEstateCollection = createSelector(
   getRealEstateEntities,
   getCollectionRealEstateIds,
   (entities, ids) => {
-    console.log('ADFASDF');
     return ids.map(id => entities[id]);
   }
 );

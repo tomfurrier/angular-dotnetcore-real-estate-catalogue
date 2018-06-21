@@ -13,7 +13,7 @@
           <ngb-carousel>
             <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
 
-              <a *ngIf="mediaUrl.type === 'image'" (click)="openGallery()">
+              <a *ngIf="mediaUrl.type === 'image'">
                 <img [src]="mediaUrl.url" alt="Random first slide">
                 <div class="carousel-caption">
                 </div>
@@ -22,9 +22,6 @@
                 allowfullscreen></iframe>
             </ng-template>
           </ngb-carousel>
-
-          <ngx-image-gallery [images]="images" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onImageClicked)="galleryImageClicked($event)"
-            (onImageChange)="galleryImageChanged($event)" (onDelete)="deleteImage($event)"></ngx-image-gallery>
 
         </mat-card-content>
         <mat-card-actions>

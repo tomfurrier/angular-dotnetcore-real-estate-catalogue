@@ -45,7 +45,7 @@ export class RealEstateListComponent
   ) {}
 
   ngOnInit() {
-    /* this.store
+    this.store
       .select(fromRoot.getSearchFilter)
       .subscribe((searchFilter: SearchFilter) => {
         this.searchFilter = searchFilter;
@@ -75,13 +75,10 @@ export class RealEstateListComponent
         data.street.toLocaleLowerCase().indexOf(lowerCaseAddress) !== -1 ||
         data.district === parseInt(lowerCaseAddress, 10);
 
-      const multipliedMinPrice = this.searchFilter.minPrice * 1000000;
-      const multipliedMaxPrice = this.searchFilter.maxPrice * 1000000;
-
       const minPriceMatches =
-        !this.searchFilter.minPrice || data.price >= multipliedMinPrice;
+        !this.searchFilter.minPrice || data.price >= this.searchFilter.minPrice;
       const maxPriceMatches =
-        !this.searchFilter.maxPrice || data.price <= multipliedMaxPrice;
+        !this.searchFilter.maxPrice || data.price <= this.searchFilter.maxPrice;
 
       const intentMatches =
         !this.searchFilter.intent || this.searchFilter.intent === data.intent;
@@ -92,15 +89,6 @@ export class RealEstateListComponent
         minPriceMatches &&
         maxPriceMatches &&
         intentMatches;
-
-      console.log(
-        'data.price ' +
-          data.price +
-          ',multipliedMaxPrice: ' +
-          multipliedMaxPrice +
-          ', multipliedMinPrice: ' +
-          multipliedMinPrice
-      );
 
       console.log(
         'Filtering: realestateTypeMatches: ' +
@@ -118,12 +106,11 @@ export class RealEstateListComponent
       );
 
       return result;
-    };*/
+    };
 
     this.store
       .pipe(
         select(fromRealEstates.getRealEstateCollection),
-        tap(t => console.log('realestatesssss: ' + JSON.stringify(t))),
         mergeMap(realEstates => (this.dataSource.data = realEstates))
       )
       .subscribe();
