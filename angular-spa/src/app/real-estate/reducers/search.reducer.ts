@@ -4,7 +4,7 @@ import {
 } from '../actions/real-estate.actions';
 
 export interface State {
-  ids: number[];
+  ids: string[];
   loading: boolean;
   error: string;
   query: string;

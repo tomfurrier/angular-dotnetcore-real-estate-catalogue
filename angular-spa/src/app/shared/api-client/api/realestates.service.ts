@@ -12,378 +12,414 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams }               from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import '../rxjs-operators';
 
 import { ApiResponse } from '../model/apiResponse';
 import { RealEstate } from '../model/realEstate';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
-
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
 @Injectable()
 export class RealestatesService {
+  protected basePath =
+    'https://virtserver.swaggerhub.com/tomfurrier/real-estate-catalogue/1.0.0';
+  public defaultHeaders = new HttpHeaders();
+  public configuration = new Configuration();
 
-    protected basePath = 'https://virtserver.swaggerhub.com/tomfurrier/real-estate-catalogue/1.0.0';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
+  constructor(
+    protected httpClient: HttpClient,
+    @Optional()
+    @Inject(BASE_PATH)
+    basePath: string,
+    @Optional() configuration: Configuration
+  ) {
+    if (basePath) {
+      this.basePath = basePath;
+    }
+    if (configuration) {
+      this.configuration = configuration;
+      this.basePath = basePath || configuration.basePath || this.basePath;
+    }
+  }
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
+  /**
+   * @param consumes string[] mime-types
+   * @return true: consumes contains 'multipart/form-data', false: otherwise
+   */
+  private canConsumeForm(consumes: string[]): boolean {
+    const form = 'multipart/form-data';
+    for (let consume of consumes) {
+      if (form === consume) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Add a new real estate to the catalogue
+   *
+   * @param body Property object that needs to be added to the catalogue
+   */
+  public addRealEstate(body: RealEstate): Observable<{}> {
+    if (body === null || body === undefined) {
+      throw new Error(
+        'Required parameter body was null or undefined when calling addRealEstate.'
+      );
     }
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (let consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
+    let headers = this.defaultHeaders;
+
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      let accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
     }
 
-
-    /**
-     * Add a new real estate to the catalogue
-     * 
-     * @param body Property object that needs to be added to the catalogue
-     */
-    public addRealEstate(body: RealEstate): Observable<{}> {
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling addRealEstate.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
-        let httpContentTypeSelected:string = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/realestates`,
-            body,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * Deletes a real estate
-     * 
-     * @param realestateId Real estate id to delete
-     */
-    public deleteRealEstate(realestateId: number): Observable<{}> {
-        if (realestateId === null || realestateId === undefined) {
-            throw new Error('Required parameter realestateId was null or undefined when calling deleteRealEstate.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.delete<any>(`${this.basePath}/realestates/${encodeURIComponent(String(realestateId))}`,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+    // to determine the Content-Type header
+    let consumes: string[] = ['application/json'];
+    let httpContentTypeSelected: string = this.configuration.selectHeaderContentType(
+      consumes
+    );
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    /**
-     * Finds real estates filtered by optional parameters
-     * 
-     * @param type Type of real estates to find
-     * @param address Where to find real estates
-     * @param intent For rent or to buy
-     * @param minPrice Minimum price for real estate
-     * @param maxPrice Maximum price for real estate
-     * @param minFloorArea Minimum floor area for real estate
-     * @param maxFloorArea Maximum floor area for real estate
-     * @param minRoomCount Minimum room count for real estate
-     * @param maxRoomCount Maximum room count for real estate
-     * @param maxAge Maximum age of real estate. 0 means newly built.
-     * @param tags Other search tags to filter by
-     */
-    public findRealEstates(type?: string, address?: string, intent?: string, minPrice?: number, maxPrice?: number, minFloorArea?: number, maxFloorArea?: number, minRoomCount?: number, maxRoomCount?: number, maxAge?: number, tags?: Array<string>): Observable<Array<RealEstate>> {
+    return this.httpClient.post<any>(`${this.basePath}/realestates`, body, {
+      headers: headers,
+      withCredentials: this.configuration.withCredentials
+    });
+  }
 
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (type !== undefined) {
-            queryParameters = queryParameters.set('type', <any>type);
-        }
-        if (address !== undefined) {
-            queryParameters = queryParameters.set('address', <any>address);
-        }
-        if (intent !== undefined) {
-            queryParameters = queryParameters.set('intent', <any>intent);
-        }
-        if (minPrice !== undefined) {
-            queryParameters = queryParameters.set('minPrice', <any>minPrice);
-        }
-        if (maxPrice !== undefined) {
-            queryParameters = queryParameters.set('maxPrice', <any>maxPrice);
-        }
-        if (minFloorArea !== undefined) {
-            queryParameters = queryParameters.set('minFloorArea', <any>minFloorArea);
-        }
-        if (maxFloorArea !== undefined) {
-            queryParameters = queryParameters.set('maxFloorArea', <any>maxFloorArea);
-        }
-        if (minRoomCount !== undefined) {
-            queryParameters = queryParameters.set('minRoomCount', <any>minRoomCount);
-        }
-        if (maxRoomCount !== undefined) {
-            queryParameters = queryParameters.set('maxRoomCount', <any>maxRoomCount);
-        }
-        if (maxAge !== undefined) {
-            queryParameters = queryParameters.set('maxAge', <any>maxAge);
-        }
-        if (tags) {
-            tags.forEach((element) => {
-                queryParameters = queryParameters.append('tags', <any>element);
-            })
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/realestates`,
-            {
-                params: queryParameters,
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+  /**
+   * Deletes a real estate
+   *
+   * @param realestateId Real estate id to delete
+   */
+  public deleteRealEstate(realestateId: string): Observable<{}> {
+    if (realestateId === null || realestateId === undefined) {
+      throw new Error(
+        'Required parameter realestateId was null or undefined when calling deleteRealEstate.'
+      );
     }
 
-    /**
-     * Find the real estate by id
-     * Returns a single real estate
-     * @param realestateId id of real estate to return
-     */
-    public getRealEstateById(realestateId: number): Observable<RealEstate> {
-        if (realestateId === null || realestateId === undefined) {
-            throw new Error('Required parameter realestateId was null or undefined when calling getRealEstateById.');
-        }
+    let headers = this.defaultHeaders;
 
-        let headers = this.defaultHeaders;
-
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/realestates/${encodeURIComponent(String(realestateId))}`,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      const accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
     }
 
-    /**
-     * Update an existing real estate
-     * 
-     * @param body Real Estate object that needs to be updated the catalogue
-     */
-    public updateRealEstate(body: RealEstate): Observable<{}> {
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling updateRealEstate.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
-        let httpContentTypeSelected:string = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.put<any>(`${this.basePath}/realestates`,
-            body,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
     }
 
-    /**
-     * uploads an image
-     * 
-     * @param realestateId Id of real estate to update
-     * @param additionalMetadata Additional data to pass to server
-     * @param file file to upload
-     */
-    public uploadFile(realestateId: number, additionalMetadata?: string, file?: Blob): Observable<ApiResponse> {
-        if (realestateId === null || realestateId === undefined) {
-            throw new Error('Required parameter realestateId was null or undefined when calling uploadFile.');
-        }
+    // to determine the Content-Type header
+    let consumes: string[] = [];
 
-        let headers = this.defaultHeaders;
+    return this.httpClient.delete<any>(
+      `${this.basePath}/realestates/${encodeURIComponent(
+        String(realestateId)
+      )}`,
+      {
+        headers: headers,
+        withCredentials: this.configuration.withCredentials
+      }
+    );
+  }
 
-        // authentication (firebase) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (additionalMetadata !== undefined) {
-            formParams = formParams.append('additionalMetadata', <any>additionalMetadata) || formParams;
-        }
-        if (file !== undefined) {
-            formParams = formParams.append('file', <any>file) || formParams;
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/realestates/${encodeURIComponent(String(realestateId))}/uploadImage`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+  /**
+   * Finds real estates filtered by optional parameters
+   *
+   * @param type Type of real estates to find
+   * @param address Where to find real estates
+   * @param intent For rent or to buy
+   * @param minPrice Minimum price for real estate
+   * @param maxPrice Maximum price for real estate
+   * @param minFloorArea Minimum floor area for real estate
+   * @param maxFloorArea Maximum floor area for real estate
+   * @param minRoomCount Minimum room count for real estate
+   * @param maxRoomCount Maximum room count for real estate
+   * @param maxAge Maximum age of real estate. 0 means newly built.
+   * @param tags Other search tags to filter by
+   */
+  public findRealEstates(
+    type?: string,
+    address?: string,
+    intent?: string,
+    minPrice?: number,
+    maxPrice?: number,
+    minFloorArea?: number,
+    maxFloorArea?: number,
+    minRoomCount?: number,
+    maxRoomCount?: number,
+    maxAge?: number,
+    tags?: Array<string>
+  ): Observable<Array<RealEstate>> {
+    let queryParameters = new HttpParams({
+      encoder: new CustomHttpUrlEncodingCodec()
+    });
+    if (type !== undefined) {
+      queryParameters = queryParameters.set('type', <any>type);
+    }
+    if (address !== undefined) {
+      queryParameters = queryParameters.set('address', <any>address);
+    }
+    if (intent !== undefined) {
+      queryParameters = queryParameters.set('intent', <any>intent);
+    }
+    if (minPrice !== undefined) {
+      queryParameters = queryParameters.set('minPrice', <any>minPrice);
+    }
+    if (maxPrice !== undefined) {
+      queryParameters = queryParameters.set('maxPrice', <any>maxPrice);
+    }
+    if (minFloorArea !== undefined) {
+      queryParameters = queryParameters.set('minFloorArea', <any>minFloorArea);
+    }
+    if (maxFloorArea !== undefined) {
+      queryParameters = queryParameters.set('maxFloorArea', <any>maxFloorArea);
+    }
+    if (minRoomCount !== undefined) {
+      queryParameters = queryParameters.set('minRoomCount', <any>minRoomCount);
+    }
+    if (maxRoomCount !== undefined) {
+      queryParameters = queryParameters.set('maxRoomCount', <any>maxRoomCount);
+    }
+    if (maxAge !== undefined) {
+      queryParameters = queryParameters.set('maxAge', <any>maxAge);
+    }
+    if (tags) {
+      tags.forEach(element => {
+        queryParameters = queryParameters.append('tags', <any>element);
+      });
     }
 
+    let headers = this.defaultHeaders;
+
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      let accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    let consumes: string[] = [];
+
+    return this.httpClient.get<any>(`${this.basePath}/realestates`, {
+      params: queryParameters,
+      headers: headers,
+      withCredentials: this.configuration.withCredentials
+    });
+  }
+
+  /**
+   * Find the real estate by id
+   * Returns a single real estate
+   * @param realestateId id of real estate to return
+   */
+  public getRealEstateById(realestateId: string): Observable<RealEstate> {
+    if (realestateId === null || realestateId === undefined) {
+      throw new Error(
+        'Required parameter realestateId was null or undefined when calling getRealEstateById.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      let accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    let consumes: string[] = [];
+
+    return this.httpClient.get<any>(
+      `${this.basePath}/realestates/${encodeURIComponent(
+        String(realestateId)
+      )}`,
+      {
+        headers: headers,
+        withCredentials: this.configuration.withCredentials
+      }
+    );
+  }
+
+  /**
+   * Update an existing real estate
+   *
+   * @param body Real Estate object that needs to be updated the catalogue
+   */
+  public updateRealEstate(body: RealEstate): Observable<{}> {
+    if (body === null || body === undefined) {
+      throw new Error(
+        'Required parameter body was null or undefined when calling updateRealEstate.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      let accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    let consumes: string[] = ['application/json'];
+    let httpContentTypeSelected: string = this.configuration.selectHeaderContentType(
+      consumes
+    );
+    if (httpContentTypeSelected != undefined) {
+      headers = headers.set('Content-Type', httpContentTypeSelected);
+    }
+
+    return this.httpClient.put<any>(`${this.basePath}/realestates`, body, {
+      headers: headers,
+      withCredentials: this.configuration.withCredentials
+    });
+  }
+
+  /**
+   * uploads an image
+   *
+   * @param realestateId Id of real estate to update
+   * @param additionalMetadata Additional data to pass to server
+   * @param file file to upload
+   */
+  public uploadFile(
+    realestateId: string,
+    additionalMetadata?: string,
+    file?: Blob
+  ): Observable<ApiResponse> {
+    if (realestateId === null || realestateId === undefined) {
+      throw new Error(
+        'Required parameter realestateId was null or undefined when calling uploadFile.'
+      );
+    }
+
+    let headers = this.defaultHeaders;
+
+    // authentication (firebase) required
+    if (this.configuration.accessToken) {
+      let accessToken =
+        typeof this.configuration.accessToken === 'function'
+          ? this.configuration.accessToken()
+          : this.configuration.accessToken;
+      headers = headers.set('Authorization', 'Bearer ' + accessToken);
+    }
+
+    // to determine the Accept header
+    let httpHeaderAccepts: string[] = ['application/json'];
+    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(
+      httpHeaderAccepts
+    );
+    if (httpHeaderAcceptSelected != undefined) {
+      headers = headers.set('Accept', httpHeaderAcceptSelected);
+    }
+
+    // to determine the Content-Type header
+    let consumes: string[] = ['multipart/form-data'];
+
+    const canConsumeForm = this.canConsumeForm(consumes);
+
+    let formParams: { append(param: string, value: any): void };
+    let useForm = false;
+    let convertFormParamsToString = false;
+    // use FormData to transmit files using content-type "multipart/form-data"
+    // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+    useForm = canConsumeForm;
+    if (useForm) {
+      formParams = new FormData();
+    } else {
+      formParams = new HttpParams({
+        encoder: new CustomHttpUrlEncodingCodec()
+      });
+    }
+
+    if (additionalMetadata !== undefined) {
+      formParams =
+        formParams.append('additionalMetadata', <any>additionalMetadata) ||
+        formParams;
+    }
+    if (file !== undefined) {
+      formParams = formParams.append('file', <any>file) || formParams;
+    }
+
+    return this.httpClient.post<any>(
+      `${this.basePath}/realestates/${encodeURIComponent(
+        String(realestateId)
+      )}/uploadImage`,
+      convertFormParamsToString ? formParams.toString() : formParams,
+      {
+        headers: headers,
+        withCredentials: this.configuration.withCredentials
+      }
+    );
+  }
 }

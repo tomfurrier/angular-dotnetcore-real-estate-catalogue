@@ -43,7 +43,7 @@ export class Load implements Action {
 export class Select implements Action {
   readonly type = RealEstateActionTypes.Select;
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 /**

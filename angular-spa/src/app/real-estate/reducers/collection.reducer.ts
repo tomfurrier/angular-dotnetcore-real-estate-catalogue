@@ -6,7 +6,7 @@ import {
 export interface State {
   loaded: boolean;
   loading: boolean;
-  ids: number[];
+  ids: string[];
 }
 
 const initialState: State = {

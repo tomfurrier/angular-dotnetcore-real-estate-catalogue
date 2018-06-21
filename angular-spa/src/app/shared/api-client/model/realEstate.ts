@@ -13,7 +13,7 @@
 import { Tag } from './tag';
 
 export interface RealEstate {
-  id?: number;
+  id?: string;
   /**
    * For rent or buy
    */

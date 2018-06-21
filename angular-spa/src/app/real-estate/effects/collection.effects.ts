@@ -1,80 +1,108 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { asyncScheduler, empty, Observable, of } from 'rxjs';
-import {
-  catchError,
-  debounceTime,
-  map,
-  skip,
-  switchMap,
-  takeUntil
-} from 'rxjs/operators';
+import { defer, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 
 import {
-  RealEstateActionTypes,
-  Search,
-  SearchComplete,
-  SearchError
-} from '../actions/real-estate.actions';
-import { Scheduler } from 'rxjs/internal/Scheduler';
+  AddRealEstate,
+  AddRealEstateFail,
+  AddRealEstateSuccess,
+  CollectionActionTypes,
+  LoadFail,
+  LoadSuccess,
+  RemoveRealEstate,
+  RemoveRealEstateFail,
+  RemoveRealEstateSuccess
+} from './../actions/collection.actions';
 import { RealEstate, RealestatesService } from '../../shared/api-client';
-import { SearchActions } from '../../shared/search/search.actions';
-
-export const SEARCH_DEBOUNCE = new InjectionToken<number>('Search Debounce');
-export const SEARCH_SCHEDULER = new InjectionToken<Scheduler>(
-  'Search Scheduler'
-);
-
-/**
- * Effects offer a way to isolate and easily test side-effects within your
- * application.
- *
- * If you are unfamiliar with the operators being used in these examples, please
- * check out the sources below:
- *
- * Official Docs: http://reactivex.io/rxjs/manual/overview.html#categories-of-operators
- * RxJS 5 Operators By Example: https://gist.github.com/btroncone/d6cf141d6f2c00dc6b35
- */
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
-export class RealEstateEffects {
-  @Effect()
-  search$: Observable<Action> = this.actions$.pipe(
-    ofType<Search>(RealEstateActionTypes.Search),
-    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    map((action: Search) => action.payload),
-    switchMap((query: string) => {
-      if (query === '') {
-        return empty();
-      }
+export class CollectionEffects {
+  /**
+   * This effect does not yield any actions back to the store. Set
+   * `dispatch` to false to hint to @ngrx/effects that it should
+   * ignore any elements of this effect stream.
+   *
+   * The `defer` observable accepts an observable factory function
+   * that is called when the observable is subscribed to.
+   * Wrapping the database open call in `defer` makes
+   * effect easier to test.
+   */
+  // @Effect({ dispatch: false })
+  // openDB$: Observable<any> = defer(() => {
+  //   return this.db.open('realestates_app');
+  // });
 
-      const nextSearch$ = this.actions$.pipe(
-        ofType(RealEstateActionTypes.Search),
-        skip(1)
-      );
-      // TODO fix this
-      return this.realEstatesApi.findRealEstates(query).pipe(
-        takeUntil(nextSearch$),
-        map((realEstates: RealEstate[]) => new SearchComplete(realEstates)),
-        catchError(err => of(new SearchError(err)))
-      );
-    })
+  @Effect()
+  loadCollection$: Observable<Action> = this.actions$.pipe(
+    ofType(CollectionActionTypes.Load),
+    switchMap(() =>
+      this.db
+        .collection('realEstates')
+        .snapshotChanges()
+        .map(docArray => {
+          return docArray.map(doc => {
+            return {
+              id: doc.payload.doc.id,
+              intent: (doc.payload.doc.data() as any).intent,
+              title: (doc.payload.doc.data() as any).title,
+              price: (doc.payload.doc.data() as any).price,
+              city: (doc.payload.doc.data() as any).city,
+              zipCode: (doc.payload.doc.data() as any).zipCode,
+              district: (doc.payload.doc.data() as any).district,
+              street: (doc.payload.doc.data() as any).street,
+              addressNum: (doc.payload.doc.data() as any).addressNum,
+              floorArea: (doc.payload.doc.data() as any).floorArea,
+              lotSize: (doc.payload.doc.data() as any).lotSize,
+              roomCount: (doc.payload.doc.data() as any).roomCount,
+              mediaUrls: (doc.payload.doc.data() as any).mediaUrls,
+              newlyBuilt: (doc.payload.doc.data() as any).newlyBuilt,
+              constructionYear: (doc.payload.doc.data() as any)
+                .constructionYear,
+              realEstateType: (doc.payload.doc.data() as any).realEstateType,
+              description: (doc.payload.doc.data() as any).description
+            };
+          });
+        })
+        .map(
+          (realEstates: RealEstate[]) => new LoadSuccess(realEstates),
+          error => new LoadFail({})
+        )
+    )
   );
 
-  constructor(
-    private actions$: Actions<Search>,
-    private realEstatesApi: RealestatesService,
-    @Optional()
-    @Inject(SEARCH_DEBOUNCE)
-    private debounce: number,
-    /**
-     * You inject an optional Scheduler that will be undefined
-     * in normal application usage, but its injected here so that you can mock out
-     * during testing using the RxJS TestScheduler for simulating passages of time.
-     */
-    @Optional()
-    @Inject(SEARCH_SCHEDULER)
-    private scheduler: Scheduler
-  ) {}
+  @Effect()
+  addRealEstateToCollection$: Observable<Action> = this.actions$.pipe(
+    ofType(CollectionActionTypes.AddRealEstate),
+    map(action => (action as AddRealEstate).payload),
+    mergeMap(realEstate =>
+      this.db
+        .collection('realEstates')
+        .add(realEstate)
+        .then(doc => {
+          const result = { ...realEstate };
+          result.id = doc.id;
+          return new AddRealEstateSuccess(result);
+        })
+        .catch(() => new AddRealEstateFail(realEstate))
+    )
+  );
+
+  @Effect()
+  removeRealEstateFromCollection$: Observable<Action> = this.actions$.pipe(
+    ofType(CollectionActionTypes.RemoveRealEstate),
+    map(action => (action as RemoveRealEstate).payload),
+    mergeMap(realEstate =>
+      this.db
+        .collection('realEstates')
+        .doc(realEstate.id)
+        .ref.delete()
+        .then(() => new RemoveRealEstateSuccess(realEstate))
+        .catch(() => new RemoveRealEstateFail(realEstate))
+    )
+  );
+
+  constructor(private actions$: Actions, private db: AngularFirestore) {}
 }

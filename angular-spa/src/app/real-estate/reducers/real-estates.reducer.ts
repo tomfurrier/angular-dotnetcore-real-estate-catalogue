@@ -18,7 +18,7 @@ import { RealEstate } from '../../shared/api-client';
  * any additional interface properties.
  */
 export interface State extends EntityState<RealEstate> {
-  selectedRealEstateId: number | null;
+  selectedRealEstateId: string | null;
 }
 
 /**
