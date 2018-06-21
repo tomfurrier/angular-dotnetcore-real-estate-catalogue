@@ -19,6 +19,7 @@ import {
 } from '../actions/real-estate.actions';
 import { Scheduler } from 'rxjs/internal/Scheduler';
 import { RealestatesService, RealEstate } from '../../shared/api-client';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 export const SEARCH_DEBOUNCE = new InjectionToken<number>('Search Debounce');
 export const SEARCH_SCHEDULER = new InjectionToken<Scheduler>(
@@ -54,17 +55,23 @@ export class RealEstateEffects {
       );
 
       // TODO fix this
-      return this.realEstatesApi.findRealEstates(query).pipe(
+      /*return this.db
+      .collection('realEstates')
+      .ref.where('title', '==', query)
+      .get()
+      .then(
+        doc => {doc.docs[0].data as RealEstate[]}
+      .pipe(
         takeUntil(nextSearch$),
         map((realEstates: RealEstate[]) => new SearchComplete(realEstates)),
         catchError(err => of(new SearchError(err)))
-      );
+      );*/
     })
   );
 
   constructor(
     private actions$: Actions,
-    private realEstatesApi: RealestatesService,
+    private db: AngularFirestore,
     @Optional()
     @Inject(SEARCH_DEBOUNCE)
     private debounce: number,
