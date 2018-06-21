@@ -2,41 +2,41 @@
   <ng-container matColumnDef="card">
     <mat-header-cell *matHeaderCellDef mat-sort-header>card</mat-header-cell>
     <mat-cell *matCellDef="let realEstate">
-      <mat-card class="item-card">
-        <mat-card-title>{{realEstate.title}}</mat-card-title>
-        <mat-card-subtitle>
-          <b>{{realEstate.price}} M Ft</b>
-        </mat-card-subtitle>
+      <a routerLink="/view-real-estate" class="item-card-link">
+        <mat-card class="item-card">
+          <mat-card-title>{{realEstate.title}}</mat-card-title>
+          <mat-card-subtitle>
+            <b>{{realEstate.price}} M Ft</b>
+          </mat-card-subtitle>
 
-        <mat-card-content>
+          <mat-card-content>
 
-          <ngb-carousel>
-            <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
+            <ngb-carousel>
+              <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
 
-              <a *ngIf="mediaUrl.type === 'image'">
-                <img [src]="mediaUrl.url" alt="Random first slide">
-                <div class="carousel-caption">
-                </div>
-              </a>
-              <iframe *ngIf="mediaUrl.type === 'video'" width="560" height="315" [src]="mediaUrl.url" frameborder="0" allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
-            </ng-template>
-          </ngb-carousel>
+                <a *ngIf="mediaUrl.type === 'image'">
+                  <img [src]="mediaUrl.url" alt="Random first slide">
+                  <div class="carousel-caption">
+                  </div>
+                </a>
+                <iframe *ngIf="mediaUrl.type === 'video'" width="560" height="315" [src]="mediaUrl.url" frameborder="0" allow="autoplay; encrypted-media"
+                  allowfullscreen></iframe>
+              </ng-template>
+            </ngb-carousel>
 
-        </mat-card-content>
-        <mat-card-actions>
-          <a routerLink="/view-real-estate">
+          </mat-card-content>
+          <mat-card-actions>
             <button mat-icon-button>
               <mat-icon>details</mat-icon>
               <span class="nav-caption"> Részletek</span>
             </button>
-          </a>
-          <button mat-icon-button>
-            <mat-icon>stars</mat-icon>
-            <span class="nav-caption">Mentés</span>
-          </button>
-        </mat-card-actions>
-      </mat-card>
+            <button mat-icon-button>
+              <mat-icon>stars</mat-icon>
+              <span class="nav-caption">Mentés</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </a>
     </mat-cell>
   </ng-container>
 
