@@ -112,14 +112,16 @@ export class NewRealEstateComponent implements OnInit {
 
     // this.uploadProgress.next(0);
 
-    for (let file of event.target.files) {
+    for (const file of event.target.files) {
       ref
         .put(file)
-        //  .percentageChanges()
-        // .map(t => this.uploadProgress.combineLatest(t.toFixed(2)))
         .then(f => {
-          console.log(`upload complete:`);
-          this.mediaUrls.push({ type: 'image', url: f.downloadURL });
+          f.ref
+            .getDownloadURL()
+            .then(downloadURL => {
+              this.mediaUrls.push({ type: 'image', url: downloadURL });
+            })
+            .catch(err => console.log(`getDownloadURL error: ${err}`));
         })
         .catch(err => console.log(`upload error: ${err}`));
     }
