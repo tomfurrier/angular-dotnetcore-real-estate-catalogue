@@ -44,6 +44,8 @@ import { CustomRouterStateSerializer } from './shared/utils';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { MatPaginatorIntl } from '@angular/material';
+import { CustomMatPaginatorIntl } from './shared/customMatPaginator';
 
 @NgModule({
   declarations: [
@@ -128,7 +130,11 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
      * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided
      * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
      */
-    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomMatPaginatorIntl
+    }
   ],
   bootstrap: [AppComponent]
 })
