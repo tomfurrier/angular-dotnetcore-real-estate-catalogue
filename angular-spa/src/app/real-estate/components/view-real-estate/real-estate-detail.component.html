@@ -1,15 +1,13 @@
 <div class="view-real-estate" fxLayout="column" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
 
   <mat-card class="item-card">
-    <mat-card-title>Eladó ház az 1. kerületben</mat-card-title>
-    <mat-card-subtitle>48.5 M Ft</mat-card-subtitle>
+    <mat-card-title>{{title}}</mat-card-title>
+    <mat-card-subtitle>{{price}} M Ft</mat-card-subtitle>
     <p-galleria class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="470" frameHeight="80"
       frameWidth="160" [autoPlay]="false"></p-galleria>
     <mat-card-content>
       <p>
-        Váralja közkedvelt utcájából, a Mátrayból kínáljuk megvételre ezt a kiváló állapotú házban lévő 68m2-es lakást. A közelmúltban
-        felújított és átalakított ingatlan egy amerikai konyhás nappalival, 2 hálószobával, 2 fürdőszobával és egy vendég
-        wc-vel rendelkezik.
+        {{description}}
       </p>
     </mat-card-content>
     <mat-card-actions>
@@ -25,29 +23,28 @@
   </mat-card>
   <mat-card class="maps-card">
     <mat-card-title>Térkép</mat-card-title>
-    <iframe width="800" height="600" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDyCgGomeGj1C27SNn-zKOruFfl2wX4mwk
-        &q=Budapest,+District+I." allowfullscreen>
+    <iframe width="800" height="600" frameborder="0" style="border:0" [src]="googleMapsUrl" allowfullscreen>
     </iframe>
   </mat-card>
   <!-- <mat-card> -->
   <section fxLayout="row" class="details-card">
     <mat-card>
       <mat-card-title>Ár</mat-card-title>
-      <mat-card-subtitle>48.5 M Forint</mat-card-subtitle>
+      <mat-card-subtitle>{{price}} M Forint</mat-card-subtitle>
       <mat-card-title>Épület típusa</mat-card-title>
-      <mat-card-subtitle>téglaház</mat-card-subtitle>
+      <mat-card-subtitle>{{realEstateType}}</mat-card-subtitle>
       <mat-card-title>Alapterület</mat-card-title>
-      <mat-card-subtitle>148 m2</mat-card-subtitle>
+      <mat-card-subtitle>{{floorArea}}</mat-card-subtitle>
     </mat-card>
     <mat-card>
       <mat-card-title>Telek nagysága</mat-card-title>
-      <mat-card-subtitle>348 m2</mat-card-subtitle>
+      <mat-card-subtitle>{{lotSize}}</mat-card-subtitle>
       <mat-card-title>Szobák száma</mat-card-title>
-      <mat-card-subtitle>5</mat-card-subtitle>
-      <mat-card-title>Ingatlan állapota</mat-card-title>
-      <mat-card-subtitle>Felújított</mat-card-subtitle>
+      <mat-card-subtitle>{{roomCount}}</mat-card-subtitle>
+      <!-- <mat-card-title>Ingatlan állapota</mat-card-title>
+      <mat-card-subtitle>{{Felújított}}</mat-card-subtitle> -->
     </mat-card>
-    <mat-card>
+    <!-- <mat-card>
       <mat-card-title>Extrák</mat-card-title>
       <mat-list>
         <mat-list-item> Bútorozott </mat-list-item>
@@ -55,7 +52,7 @@
         <mat-list-item> Amerikai konyha </mat-list-item>
         <mat-list-item> Gáz </mat-list-item>
       </mat-list>
-    </mat-card>
+    </mat-card> -->
   </section>
   <!-- </mat-card> -->
 </div>

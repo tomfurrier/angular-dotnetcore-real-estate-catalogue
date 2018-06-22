@@ -2,7 +2,7 @@
   <ng-container matColumnDef="card">
     <mat-header-cell *matHeaderCellDef mat-sort-header>card</mat-header-cell>
     <mat-cell *matCellDef="let realEstate">
-      <a routerLink="/view-real-estate" class="item-card-link">
+      <a [routerLink]="['/view-real-estate', realEstate.id]" class="item-card-link">
         <mat-card class="item-card">
           <mat-card-title>{{realEstate.title}}</mat-card-title>
           <mat-card-subtitle>

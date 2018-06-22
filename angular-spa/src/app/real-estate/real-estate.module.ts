@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { RealEstateDetailComponent } from './components/view-real-estate/real-estate-detail.component';
+import { SelectedRealEstatePageComponent } from './components/view-real-estate/selected-real-estate-page.component';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     RealEstatesComponent,
     NewRealEstateComponent,
     EditRealEstateComponent,
-    ViewRealEstateComponent
+    ViewRealEstateComponent,
+    RealEstateDetailComponent,
+    SelectedRealEstatePageComponent
   ],
   providers: [RealEstateExistsGuard]
 })
