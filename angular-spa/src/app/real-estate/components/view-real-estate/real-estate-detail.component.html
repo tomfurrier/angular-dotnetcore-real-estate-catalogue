@@ -3,8 +3,8 @@
   <mat-card class="item-card">
     <mat-card-title>{{title}}</mat-card-title>
     <mat-card-subtitle>{{price}} M Ft</mat-card-subtitle>
-    <p-galleria class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="470" frameHeight="80"
-      frameWidth="160" [autoPlay]="false"></p-galleria>
+    <p-galleria *ngIf="images" class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="470"
+      frameHeight="80" frameWidth="160" [autoPlay]="false"></p-galleria>
     <mat-card-content>
       <p>
         {{description}}

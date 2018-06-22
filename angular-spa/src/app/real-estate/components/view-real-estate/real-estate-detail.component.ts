@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { RealEstate } from '../../../shared/api-client';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './real-estate-detail.component.html',
   styleUrls: ['./real-estate-detail.component.css']
 })
-export class RealEstateDetailComponent {
+export class RealEstateDetailComponent implements OnInit {
   @Input() realEstate: RealEstate;
   @Input() inCollection: boolean;
   @Output() add = new EventEmitter<RealEstate>();
@@ -88,14 +88,19 @@ export class RealEstateDetailComponent {
     return this.realEstate ? this.realEstate.zipCode : 0;
   }
 
-  images = [];
-  constructor(private domSanitizer: DomSanitizer) {
+  images: any[];
+
+  ngOnInit(): void {
+    this.setImages();
+  }
+
+  private setImages() {
     const imageUrls = [];
 
     if (this.realEstate) {
       for (const url of this.realEstate.mediaUrls) {
         imageUrls.push({
-          source: url,
+          source: url.url,
           alt: 'Ingatlan kép',
           title: ''
         });
@@ -104,4 +109,6 @@ export class RealEstateDetailComponent {
     console.log('images: ' + JSON.stringify(imageUrls));
     this.images = imageUrls;
   }
+
+  constructor(private domSanitizer: DomSanitizer) {}
 }
