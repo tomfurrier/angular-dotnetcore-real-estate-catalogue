@@ -14,6 +14,8 @@ import { CollectionEffects } from './effects/collection.effects';
 import { RealEstateExistsGuard } from './guards/real-estate-exists.guard';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import { reducers } from './reducers';
     SharedModule,
     ReactiveFormsModule,
     SliderModule,
-
+    AngularFireModule,
+    AngularFireStorageModule,
     /**
      * StoreModule.forFeature is used for composing state
      * from feature modules. These modules can be loaded

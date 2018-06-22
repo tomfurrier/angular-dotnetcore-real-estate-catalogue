@@ -43,6 +43,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CustomRouterStateSerializer } from './shared/utils';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     AuthModule,
     SharedModule,
     AngularFirestoreModule,

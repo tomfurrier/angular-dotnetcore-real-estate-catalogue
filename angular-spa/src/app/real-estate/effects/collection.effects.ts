@@ -25,6 +25,7 @@ import {
 import { RealEstate, RealestatesService } from '../../shared/api-client';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CollectionEffects {
@@ -46,7 +47,7 @@ export class CollectionEffects {
   @Effect()
   loadCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.Load),
-    switchMap(() =>
+    mergeMap(() =>
       this.db
         .collection('realEstates')
         .snapshotChanges()

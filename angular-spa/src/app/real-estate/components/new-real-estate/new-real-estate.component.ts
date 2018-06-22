@@ -11,6 +11,15 @@ import * as fromRealEstates from '../../reducers';
 import { Store } from '@ngrx/store';
 import * as CollectionActions from '../../actions/collection.actions';
 import { RealEstate } from '../../../shared/api-client';
+import { FirebaseStorage, AngularFireModule } from 'angularfire2';
+import { storage } from 'firebase';
+import { Observable, Subject } from 'rxjs';
+import { AngularFireStorage } from 'angularfire2/storage';
+
+interface MediaUrl {
+  type: string;
+  url: string;
+}
 
 @Component({
   selector: 'app-new-real-estate',
@@ -24,7 +33,16 @@ export class NewRealEstateComponent implements OnInit {
   newRealEstateThirdForm: FormGroup;
   newRealEstateFourthForm: FormGroup;
 
-  constructor(private store: Store<fromRealEstates.State>) {}
+  task: storage.UploadTask;
+  uploadProgress: Subject<number>;
+  downloadURL: string;
+
+  mediaUrls: MediaUrl[] = [];
+
+  constructor(
+    private store: Store<fromRealEstates.State>,
+    private afStorage: AngularFireStorage
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -60,24 +78,50 @@ export class NewRealEstateComponent implements OnInit {
 
   save(): void {
     const newRealEstate = {
-      city: 'Szentes',
-      addressNum: '1234/4',
-      description: 'min 1 évre',
-      intent: RealEstate.IntentEnum.Rent,
-      street: 'Pitypang utca',
-      zipCode: 1234,
-      constructionYear: 2016,
-      floorArea: 34.5,
-      price: 43,
-      roomCount: '3+1',
-      title: 'Kiadó ház Szentes',
-      mediaUrls: [
-        'https://picsum.photos/540/405/?image=7',
-        'https://picsum.photos/540/405/?image=11',
-        'https://picsum.photos/540/405/?image=9'
-      ]
+      title: this.newRealEstateFirstForm.get('title').value,
+
+      description: this.newRealEstateFirstForm.get('description').value,
+      realEstateType: this.newRealEstateFirstForm.get('realEstateType').value,
+      intent: this.newRealEstateFirstForm.get('intent').value,
+      price: this.newRealEstateFirstForm.get('price').value,
+      zipCode: this.newRealEstateSecondForm.get('zipCode').value,
+      city: this.newRealEstateSecondForm.get('city').value,
+      district: this.newRealEstateSecondForm.get('district').value,
+      street: this.newRealEstateSecondForm.get('street').value,
+      addressNum: this.newRealEstateSecondForm.get('addressNum').value,
+      floorArea: this.newRealEstateThirdForm.get('floorArea').value,
+      lotSize: this.newRealEstateThirdForm.get('lotSize').value,
+      roomCount: this.newRealEstateThirdForm.get('roomCount').value,
+      newlyBuilt: this.newRealEstateThirdForm.get('newlyBuilt').value,
+      constructionYear: this.newRealEstateThirdForm.get('constructionYear')
+        .value,
+      mediaUrls: this.mediaUrls
     } as RealEstate;
 
     this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
+  }
+
+  upload(event) {
+    const randomId = Math.random()
+      .toString(36)
+      .substring(2);
+    const ref = this.afStorage.ref(randomId);
+
+    // clear array
+    this.mediaUrls = [];
+
+    // this.uploadProgress.next(0);
+
+    for (let file of event.target.files) {
+      ref
+        .put(file)
+        //  .percentageChanges()
+        // .map(t => this.uploadProgress.combineLatest(t.toFixed(2)))
+        .then(f => {
+          console.log(`upload complete:`);
+          this.mediaUrls.push({ type: 'image', url: f.downloadURL });
+        })
+        .catch(err => console.log(`upload error: ${err}`));
+    }
   }
 }

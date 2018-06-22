@@ -104,7 +104,10 @@
       <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="newRealEstateFourthForm">
         <ng-template matStepLabel>Fényképek feltöltése</ng-template>
 
-        <button mat-raised-button type="button">Új képek feltöltése</button>
+
+        <!-- <progress max="100" [value]="(uploadProgress | async)"></progress> -->
+
+        <input mat-raised-button type="file" (change)="upload($event)" accept="image/png, image/jpeg, image/jpg" multiple/>
         <!-- <input hidden type="file" #imgFileInput multiple accept="image/*" [fileUploadInputFor]="fileUploadQueue" />
         <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'" [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
           <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
@@ -112,8 +115,8 @@
         </mat-file-upload-queue> -->
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
-          <button flex type="submit" mat-raised-button color="primary" [disabled]="newRealEstateFirstForm.invalid || newRealEstateSecondForm.invalid || newRealEstateThirdForm.invalid || newRealEstateFourthForm.invalid"
-            (click)="save()">Mentés</button>
+          <!-- TODO form validation -->
+          <button flex type="submit" mat-raised-button color="primary" (click)="save()">Mentés</button>
         </div>
       </form>
     </mat-step>
