@@ -26,6 +26,7 @@ import { RealEstate, RealestatesService } from '../../shared/api-client';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CollectionEffects {
@@ -82,21 +83,10 @@ export class CollectionEffects {
     )
   );
 
-  @Effect()
+  @Effect({ dispatch: false })
   addRealEstateToCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.AddRealEstate),
-    map(action => (action as AddRealEstate).payload),
-    mergeMap(realEstate =>
-      this.db
-        .collection('realEstates')
-        .add(realEstate)
-        .then(doc => {
-          const result = { ...realEstate };
-          result.id = doc.id;
-          return new AddRealEstateSuccess(result);
-        })
-        .catch(() => new AddRealEstateFail(realEstate))
-    )
+    tap(() => this.router.navigate(['/']))
   );
 
   @Effect()
@@ -113,5 +103,9 @@ export class CollectionEffects {
     )
   );
 
-  constructor(private actions$: Actions, private db: AngularFirestore) {}
+  constructor(
+    private actions$: Actions,
+    private db: AngularFirestore,
+    private router: Router
+  ) {}
 }
