@@ -83,9 +83,21 @@ export class CollectionEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   addRealEstateToCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.AddRealEstate),
+    map(action => (action as AddRealEstate).payload),
+    mergeMap(realEstate =>
+      this.db
+        .collection('realEstates')
+        .add(realEstate)
+        .then(doc => {
+          const result = { ...realEstate };
+          result.id = doc.id;
+          return new AddRealEstateSuccess(result);
+        })
+        .catch(() => new AddRealEstateFail(realEstate))
+    ),
     tap(() => this.router.navigate(['/']))
   );
 
