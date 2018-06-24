@@ -1,11 +1,19 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { RealEstate } from '../../../shared/api-client';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-real-estate-detail',
   templateUrl: './real-estate-detail.component.html',
-  styleUrls: ['./real-estate-detail.component.css']
+  styleUrls: ['./real-estate-detail.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RealEstateDetailComponent implements OnInit {
   @Input() realEstate: RealEstate;
@@ -52,7 +60,7 @@ export class RealEstateDetailComponent implements OnInit {
     const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDyCgGomeGj1C27SNn-zKOruFfl2wX4mwk&q=`;
     let urlString = `${baseUrl}${this.city},${this.street},${this.addressNum}`;
     urlString = urlString.split(' ').join('+');
-    console.log('gmapsurl: ' + urlString);
+    //console.log('gmapsurl: ' + urlString);
     return this.domSanitizer.bypassSecurityTrustResourceUrl(urlString);
   }
 

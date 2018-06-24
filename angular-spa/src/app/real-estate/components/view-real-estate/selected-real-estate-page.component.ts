@@ -30,8 +30,6 @@ export class SelectedRealEstatePageComponent {
     this.isSelectedRealEstateInCollection$ = store.pipe(
       select(fromRealEstates.isSelectedRealEstateInCollection)
     );
-
-    this.realEstate$.subscribe(r => console.log('reales: ' + r)); // TODO if we remove this..will it work?
   }
 
   addToCollection(realEstate: RealEstate) {

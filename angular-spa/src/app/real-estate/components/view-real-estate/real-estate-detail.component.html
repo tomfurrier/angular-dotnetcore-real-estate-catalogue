@@ -31,14 +31,14 @@
     <mat-card>
       <mat-card-title>Ár</mat-card-title>
       <mat-card-subtitle>{{price}} M Forint</mat-card-subtitle>
-      <mat-card-title>Épület típusa</mat-card-title>
-      <mat-card-subtitle>{{realEstateType}}</mat-card-subtitle>
+      <mat-card-title *ngIf="realEstateType">Épület típusa</mat-card-title>
+      <mat-card-subtitle *ngIf="realEstateType">{{realEstateType}}</mat-card-subtitle>
       <mat-card-title>Alapterület</mat-card-title>
-      <mat-card-subtitle>{{floorArea}}</mat-card-subtitle>
+      <mat-card-subtitle>{{floorArea}} m2</mat-card-subtitle>
     </mat-card>
     <mat-card>
-      <mat-card-title>Telek nagysága</mat-card-title>
-      <mat-card-subtitle>{{lotSize}}</mat-card-subtitle>
+      <mat-card-title *ngIf="lotSize">Telek nagysága</mat-card-title>
+      <mat-card-subtitle *ngIf="lotSize">{{lotSize}} m2</mat-card-subtitle>
       <mat-card-title>Szobák száma</mat-card-title>
       <mat-card-subtitle>{{roomCount}}</mat-card-subtitle>
       <!-- <mat-card-title>Ingatlan állapota</mat-card-title>

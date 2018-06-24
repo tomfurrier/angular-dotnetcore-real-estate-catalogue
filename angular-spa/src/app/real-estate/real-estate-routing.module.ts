@@ -14,7 +14,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'edit-real-estate', component: EditRealEstateComponent },
-  { path: 'view-real-estate/:id', component: ViewRealEstateComponent }
+  { path: 'real-estates/:id', component: ViewRealEstateComponent }
 ];
 
 @NgModule({
