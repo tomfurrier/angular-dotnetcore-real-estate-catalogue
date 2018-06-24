@@ -84,7 +84,7 @@
           <input type="number" placeholder="Telek (m2)" class="form-control" formControlName="lotSize" matInput>
         </mat-form-field>
         <mat-form-field>
-          <input type="number" placeholder="Szobaszám" class="form-control" formControlName="roomCount" matInput required>
+          <input type="number" placeholder="Szobák száma" class="form-control" formControlName="roomCount" matInput required>
           <mat-error *ngIf="newRealEstateThirdForm.controls['roomCount'].errors?.required && newRealEstateThirdForm.controls['roomCount'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>
 
@@ -116,7 +116,7 @@
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
           <!-- TODO form validation -->
-          <button flex type="submit" mat-raised-button color="primary" (click)="save()">Mentés</button>
+          <button flex type="submit" mat-raised-button color="primary" [disabled]="imageUploadInProgress  || !hasUploadedImage" (click)="save()">Mentés</button>
         </div>
       </form>
     </mat-step>

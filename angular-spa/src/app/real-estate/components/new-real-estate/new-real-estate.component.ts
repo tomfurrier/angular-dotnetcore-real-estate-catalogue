@@ -11,10 +11,10 @@ import * as fromRealEstates from '../../reducers';
 import { Store } from '@ngrx/store';
 import * as CollectionActions from '../../actions/collection.actions';
 import { RealEstate } from '../../../shared/api-client';
-import { FirebaseStorage, AngularFireModule } from 'angularfire2';
 import { storage } from 'firebase';
 import { Observable, Subject } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
+import * as UI from '../../../shared/ui.actions';
 
 interface MediaUrl {
   type: string;
@@ -36,6 +36,8 @@ export class NewRealEstateComponent implements OnInit {
   task: storage.UploadTask;
   uploadProgress: Subject<number>;
   downloadURL: string;
+
+  imageUploadsInProgressNum: number;
 
   mediaUrls: MediaUrl[] = [];
 
@@ -101,7 +103,7 @@ export class NewRealEstateComponent implements OnInit {
     this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
   }
 
-  upload(event) {
+  async upload(event) {
     const randomId = Math.random()
       .toString(36)
       .substring(2);
@@ -112,18 +114,30 @@ export class NewRealEstateComponent implements OnInit {
 
     // this.uploadProgress.next(0);
 
+    this.imageUploadsInProgressNum = event.target.files.length;
+
     for (const file of event.target.files) {
-      ref
+      this.store.dispatch(new UI.StartLoading());
+
+      const uploadedFile = await ref
         .put(file)
-        .then(f => {
-          f.ref
-            .getDownloadURL()
-            .then(downloadURL => {
-              this.mediaUrls.push({ type: 'image', url: downloadURL });
-            })
-            .catch(err => console.log(`getDownloadURL error: ${err}`));
-        })
         .catch(err => console.log(`upload error: ${err}`));
+
+      const downloadURL = await uploadedFile.ref
+        .getDownloadURL()
+        .catch(err => console.log(`getDownloadURL error: ${err}`));
+
+      this.mediaUrls.push({ type: 'image', url: downloadURL });
+      this.imageUploadsInProgressNum--;
+      this.store.dispatch(new UI.StopLoading());
     }
+  }
+
+  get imageUploadInProgress() {
+    return this.imageUploadsInProgressNum > 0;
+  }
+
+  get hasUploadedImage() {
+    return this.mediaUrls.length > 0;
   }
 }
