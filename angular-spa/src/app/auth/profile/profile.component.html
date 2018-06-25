@@ -1,7 +1,13 @@
-<div class="view-real-estate" fxLayout="column" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
+<div class="profile" fxLayout="column" fxLayoutGap.gt-md="20px" fxLayoutAlign="center center">
 
   <mat-card class="item-card">
-    <!-- <mat-card-title>{{title}}</mat-card-title> -->
-    <!-- <mat-card-subtitle>{{price}} M Ft</mat-card-subtitle> -->
+    <p>
+      Bejelentkezve:
+    </p>
+    <h4> {{emailAddress}}</h4>
+    <button (click)="resetPassword()" mat-raised-button color="primary">Jelszó visszaállítása</button>
+    <p *ngIf="emailSent">
+      A visszaállításhoz szükséges email {{emailAddress}} címre elküldve.
+    </p>
   </mat-card>
 </div>

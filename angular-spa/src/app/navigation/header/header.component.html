@@ -34,6 +34,9 @@
       <li *ngIf="(isAuth$ | async)">
         <a style="cursor: pointer;" (click)="onLogout()">Kijelentkezés</a>
       </li>
+      <li *ngIf="(isAuth$ | async)">
+        <a routerLink="/profile">Profil</a>
+      </li>
     </ul>
   </div>
 </mat-toolbar>

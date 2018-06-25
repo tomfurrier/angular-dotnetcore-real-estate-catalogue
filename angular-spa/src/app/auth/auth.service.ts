@@ -64,4 +64,14 @@ export class AuthService {
   logout() {
     this.authService.auth.signOut();
   }
+
+  resetPassword() {
+    return this.authService.auth.sendPasswordResetEmail(
+      this.currentUserEmailAddress
+    );
+  }
+
+  get currentUserEmailAddress() {
+    return this.authService.auth.currentUser.email;
+  }
 }

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { UIService } from '../../shared/ui.service';
-import * as fromRoot from '../../app.reducer';
-import { Store } from '@ngrx/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -11,24 +8,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  changePasswordForm: FormGroup;
+  emailSent: boolean;
 
-  constructor(
-    private authService: AuthService,
-    private uiService: UIService,
-    private store: Store<fromRoot.State>
-  ) {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.createForm();
+  ngOnInit(): void {
+    this.emailSent = false;
   }
 
-  createForm(): void {
-    this.changePasswordForm = new FormGroup({
-      newPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ])
-    });
+  resetPassword() {
+    this.authService.resetPassword().then(() => (this.emailSent = true));
+  }
+
+  get emailAddress(): string {
+    return this.authService.currentUserEmailAddress;
   }
 }

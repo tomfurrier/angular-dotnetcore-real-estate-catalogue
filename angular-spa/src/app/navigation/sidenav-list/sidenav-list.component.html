@@ -11,6 +11,10 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Hirdetésfeladás</span>
   </a>
+  <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/profile" (click)="onClose()">
+    <mat-icon>account_circle</mat-icon>
+    <span class="nav-caption">Profil</span>
+  </a>
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="(isAuth$ | async)">
       <mat-icon>eject</mat-icon>
