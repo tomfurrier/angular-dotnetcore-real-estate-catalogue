@@ -104,11 +104,6 @@ export class NewRealEstateComponent implements OnInit {
   }
 
   async upload(event) {
-    const randomId = Math.random()
-      .toString(36)
-      .substring(2);
-    const ref = this.afStorage.ref(randomId);
-
     // clear array
     this.mediaUrls = [];
 
@@ -116,8 +111,14 @@ export class NewRealEstateComponent implements OnInit {
 
     this.imageUploadsInProgressNum = event.target.files.length;
 
-    for (const file of event.target.files) {
-      this.store.dispatch(new UI.StartLoading());
+    console.log('multiple file upload: ' + event.target.files.length);
+    const filesToUpload: File[] = event.target.files;
+    for (const file of filesToUpload) {
+      //this.store.dispatch(new UI.StartLoading());
+      const randomId = Math.random()
+        .toString(36)
+        .substring(2);
+      const ref = this.afStorage.ref(randomId);
 
       const uploadedFile = await ref
         .put(file)
@@ -129,8 +130,11 @@ export class NewRealEstateComponent implements OnInit {
 
       this.mediaUrls.push({ type: 'image', url: downloadURL });
       this.imageUploadsInProgressNum--;
-      this.store.dispatch(new UI.StopLoading());
+      //  this.store.dispatch(new UI.StopLoading());
     }
+    console.log(
+      'multiple file upload completed: ' + JSON.stringify(this.mediaUrls)
+    );
   }
 
   get imageUploadInProgress() {
