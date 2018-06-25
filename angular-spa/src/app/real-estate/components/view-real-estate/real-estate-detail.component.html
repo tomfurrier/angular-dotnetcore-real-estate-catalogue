@@ -3,10 +3,10 @@
   <mat-card class="item-card">
     <mat-card-title>{{title}}</mat-card-title>
     <mat-card-subtitle>{{price}} M Ft</mat-card-subtitle>
-    <p-galleria *ngIf="images" class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="470"
-      frameHeight="80" frameWidth="160" [autoPlay]="false"></p-galleria>
+    <p-galleria *ngIf="images" class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="637"
+      frameWidth="160" frameHeight="120" [autoPlay]="false"></p-galleria>
     <mat-card-content>
-      <p>
+      <p class="description">
         {{description}}
       </p>
     </mat-card-content>
@@ -15,7 +15,7 @@
         <mat-icon>perm_contact_calendar</mat-icon>
         <span class="nav-caption"> Üzletkötő felkeresése</span>
       </button>
-      <button mat-icon-button>
+      Fgalleria<button mat-icon-button>
         <mat-icon>stars</mat-icon>
         <span class="nav-caption">Mentés</span>
       </button> 

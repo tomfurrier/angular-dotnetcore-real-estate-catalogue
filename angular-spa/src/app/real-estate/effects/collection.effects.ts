@@ -39,7 +39,6 @@ export class CollectionEffects {
         .collection('realEstates')
         .snapshotChanges()
         .map(docArray => {
-          console.table(docArray);
           const sortedArray = docArray.sort(
             (a, b) =>
               (a.payload.doc.data() as any).createdAt >
@@ -47,7 +46,6 @@ export class CollectionEffects {
                 ? -1
                 : 1
           );
-          console.table(sortedArray);
           return sortedArray.map(doc => {
             return {
               id: doc.payload.doc.id,
