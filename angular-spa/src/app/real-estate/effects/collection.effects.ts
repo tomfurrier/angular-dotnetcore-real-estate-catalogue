@@ -27,24 +27,10 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class CollectionEffects {
-  /**
-   * This effect does not yield any actions back to the store. Set
-   * `dispatch` to false to hint to @ngrx/effects that it should
-   * ignore any elements of this effect stream.
-   *
-   * The `defer` observable accepts an observable factory function
-   * that is called when the observable is subscribed to.
-   * Wrapping the database open call in `defer` makes
-   * effect easier to test.
-   */
-  // @Effect({ dispatch: false })
-  // openDB$: Observable<any> = defer(() => {
-  //   return this.db.open('realestates_app');
-  // });
-
   @Effect()
   loadCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.Load),
@@ -53,7 +39,16 @@ export class CollectionEffects {
         .collection('realEstates')
         .snapshotChanges()
         .map(docArray => {
-          return docArray.map(doc => {
+          console.table(docArray);
+          const sortedArray = docArray.sort(
+            (a, b) =>
+              (a.payload.doc.data() as any).createdAt >
+              (b.payload.doc.data() as any).createdAt
+                ? -1
+                : 1
+          );
+          console.table(sortedArray);
+          return sortedArray.map(doc => {
             return {
               id: doc.payload.doc.id,
               intent: (doc.payload.doc.data() as any).intent,
@@ -78,7 +73,7 @@ export class CollectionEffects {
         })
         .map(
           (realEstates: RealEstate[]) => new LoadSuccess(realEstates),
-          error => new LoadFail({})
+          error => new LoadFail(error)
         )
     )
   );
@@ -90,7 +85,10 @@ export class CollectionEffects {
     mergeMap(realEstate =>
       this.db
         .collection('realEstates')
-        .add(realEstate)
+        .add({
+          ...realEstate,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
         .then(doc => {
           const result = { ...realEstate };
           result.id = doc.id;
