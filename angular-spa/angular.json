@@ -18,8 +18,8 @@
             "polyfills": "src/polyfills.ts",
             "assets": ["src/assets", "src/favicon.ico"],
             "styles": [
-              "src/styles.css",
-              "src/olive-theme.scss",
+              "src/assets/styles/styles.scss",
+              "src/assets/styles/olive-theme.scss",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/darkness/theme.css"
@@ -92,8 +92,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css",
-              "src/olive-theme.scss",
+              "src/assets/styles/styles.scss",
+              "src/assets/styles/olive-theme.scss",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/darkness/theme.css"

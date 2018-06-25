@@ -40,8 +40,10 @@ a.email {
 }
 
 .page-title {
-  font-size: 2.5em;
-  line-height: 2.6em;
+  font-size: 3em;
+  line-height: 3em;
+  font-family: 'Ubuntu';
+  /* font-family: 'Work Sans'; */
 }
 
 mat-toolbar {
