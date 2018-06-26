@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RealEstate } from '../../../shared/api-client';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-real-estate-detail',
@@ -57,7 +58,9 @@ export class RealEstateDetailComponent implements OnInit {
   }
 
   get googleMapsUrl() {
-    const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDyCgGomeGj1C27SNn-zKOruFfl2wX4mwk&q=`;
+    const baseUrl = `https://www.google.com/maps/embed/v1/place?key=${
+      environment.googleMapsApiKey
+    }`;
     let urlString = `${baseUrl}${this.city},${this.street},${this.addressNum}`;
     urlString = urlString.split(' ').join('+');
     //console.log('gmapsurl: ' + urlString);
