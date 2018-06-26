@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RealEstatesComponent } from './components/real-estates/real-estates.component';
-import { ViewRealEstateComponent } from './components/view-real-estate/view-real-estate.component';
 import { RealEstateRoutingModule } from './real-estate-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +15,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { RealEstateDetailComponent } from './components/real-estate/detail/real-estate-detail.component';
 import { SelectedRealEstatePageComponent } from './components/real-estate/selected-real-estate-page.component';
-import { CreateRealEstateComponent } from './create-real-estate/create-real-estate.component';
+import { CreateRealEstateComponent } from './components/real-estate/create-real-estate.component';
+import { ViewRealEstateComponent } from './components/real-estate/view-real-estate.component';
 
 @NgModule({
   imports: [
