@@ -153,11 +153,3 @@ export const getRealEstateCollection = createSelector(
     return ids.map(id => entities[id]);
   }
 );
-
-export const isSelectedRealEstateInCollection = createSelector(
-  getCollectionRealEstateIds,
-  getSelectedRealEstateId,
-  (ids, selected) => {
-    return ids.indexOf(selected) > -1;
-  }
-);

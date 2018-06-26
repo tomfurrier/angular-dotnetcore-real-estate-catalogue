@@ -7,7 +7,7 @@
     <mat-icon>input</mat-icon>
     <span class="nav-caption">Kapcsolat</span>
   </a>
-  <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/new-real-estate" (click)="onClose()">
+  <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/real-estates/create" (click)="onClose()">
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Hirdetésfeladás</span>
   </a>

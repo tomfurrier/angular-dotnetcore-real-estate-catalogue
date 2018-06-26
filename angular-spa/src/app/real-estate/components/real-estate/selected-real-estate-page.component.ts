@@ -12,24 +12,17 @@ import { tap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-real-estate-detail
-      [realEstate]="realEstate$ | async"
-      [inCollection]="isSelectedRealEstateInCollection$ | async"
-      (add)="addToCollection($event)"
-      (remove)="removeFromCollection($event)">
+      [realEstate]="realEstate$ | async">
     </app-real-estate-detail>
   `
 })
 export class SelectedRealEstatePageComponent {
   realEstate$: Observable<RealEstate>;
-  isSelectedRealEstateInCollection$: Observable<boolean>;
 
   constructor(private store: Store<fromRealEstates.State>) {
     this.realEstate$ = store.pipe(
       select(fromRealEstates.getSelectedRealEstate)
     ) as Observable<RealEstate>;
-    this.isSelectedRealEstateInCollection$ = store.pipe(
-      select(fromRealEstates.isSelectedRealEstateInCollection)
-    );
   }
 
   addToCollection(realEstate: RealEstate) {

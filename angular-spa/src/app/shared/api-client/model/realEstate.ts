@@ -29,6 +29,7 @@ export interface RealEstate {
   lotSize?: number;
   roomCount: string;
   mediaUrls: Array<any>;
+  peviewMediaUrl: any;
   newlyBuilt?: boolean;
   constructionYear?: number;
   /**

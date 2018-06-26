@@ -61,6 +61,7 @@ export class CollectionEffects {
               lotSize: (doc.payload.doc.data() as any).lotSize,
               roomCount: (doc.payload.doc.data() as any).roomCount,
               mediaUrls: (doc.payload.doc.data() as any).mediaUrls,
+              peviewMediaUrl: (doc.payload.doc.data() as any).peviewMediaUrl,
               newlyBuilt: (doc.payload.doc.data() as any).newlyBuilt,
               constructionYear: (doc.payload.doc.data() as any)
                 .constructionYear,

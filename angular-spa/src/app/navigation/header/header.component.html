@@ -29,7 +29,7 @@
         </mat-card>
       </li>
       <li *ngIf="(isAuth$ | async)">
-        <a routerLink="/new-real-estate">Hirdetésfeladás</a>
+        <a routerLink="/real-estates/create">Hirdetésfeladás</a>
       </li>
       <li *ngIf="(isAuth$ | async)">
         <a style="cursor: pointer;" (click)="onLogout()">Kijelentkezés</a>

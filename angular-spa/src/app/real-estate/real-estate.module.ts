@@ -17,6 +17,7 @@ import { RealEstateDetailComponent } from './components/real-estate/detail/real-
 import { SelectedRealEstatePageComponent } from './components/real-estate/selected-real-estate-page.component';
 import { CreateRealEstateComponent } from './components/real-estate/create-real-estate.component';
 import { ViewRealEstateComponent } from './components/real-estate/view-real-estate.component';
+import { RealEstateEditComponent } from './components/real-estate/edit/real-estate-edit.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { ViewRealEstateComponent } from './components/real-estate/view-real-esta
     ViewRealEstateComponent,
     RealEstateDetailComponent,
     SelectedRealEstatePageComponent,
-    CreateRealEstateComponent
+    CreateRealEstateComponent,
+    RealEstateEditComponent
   ],
   providers: [RealEstateExistsGuard]
 })

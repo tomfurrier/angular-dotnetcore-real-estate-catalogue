@@ -36,6 +36,7 @@ export class RealEstateEditComponent implements OnInit {
   imageUploadsInProgressNum: number;
 
   mediaUrls: MediaUrl[] = [];
+  previewMediaUrl: MediaUrl;
 
   constructor(
     private store: Store<fromRealEstates.State>,
@@ -99,16 +100,24 @@ export class RealEstateEditComponent implements OnInit {
     this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
   }
 
-  async upload(event) {
-    // clear array
-    this.mediaUrls = [];
-
-    // this.uploadProgress.next(0);
-
-    this.imageUploadsInProgressNum = event.target.files.length;
-
-    console.log('multiple file upload: ' + event.target.files.length);
+  async uploadPreviewImage(event) {
     const filesToUpload: File[] = event.target.files;
+    const downloadURLs = await this.uploadFilesToFirestore(filesToUpload);
+    this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
+  }
+
+  async upload(event) {
+    const filesToUpload: File[] = event.target.files;
+    const downloadURLs = await this.uploadFilesToFirestore(filesToUpload);
+    this.mediaUrls = downloadURLs.map(u => {
+      return { type: 'image', url: u };
+    });
+  }
+
+  async uploadFilesToFirestore(filesToUpload: File[]): Promise<string[]> {
+    const fileUrls: string[] = [];
+    this.imageUploadsInProgressNum = filesToUpload.length;
+
     for (const file of filesToUpload) {
       const randomId = Math.random()
         .toString(36)
@@ -123,13 +132,11 @@ export class RealEstateEditComponent implements OnInit {
         .getDownloadURL()
         .catch(err => console.log(`getDownloadURL error: ${err}`));
 
-      this.mediaUrls.push({ type: 'image', url: downloadURL });
+      fileUrls.push(downloadURL);
       this.imageUploadsInProgressNum--;
-      //  this.store.dispatch(new UI.StopLoading());
     }
-    console.log(
-      'multiple file upload completed: ' + JSON.stringify(this.mediaUrls)
-    );
+
+    return fileUrls;
   }
 
   get imageUploadInProgress() {
