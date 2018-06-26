@@ -17,10 +17,7 @@ export class ViewRealEstateComponent implements OnDestroy {
 
   constructor(store: Store<fromRealEstates.State>, route: ActivatedRoute) {
     this.actionsSubscription = route.params
-      .pipe(
-        tap(t => console.log('adfasdf ' + t.id)),
-        map(params => new RealEstateActions.Select(params.id))
-      )
+      .pipe(map(params => new RealEstateActions.Select(params.id)))
       .subscribe(store);
   }
 

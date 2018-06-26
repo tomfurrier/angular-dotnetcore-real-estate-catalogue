@@ -6,9 +6,9 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { RealEstate } from '../../../shared/api-client';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
+import { RealEstate } from '../../../../shared/api-client';
 
 @Component({
   selector: 'app-real-estate-detail',
@@ -18,9 +18,6 @@ import { environment } from '../../../../environments/environment';
 })
 export class RealEstateDetailComponent implements OnInit {
   @Input() realEstate: RealEstate;
-  @Input() inCollection: boolean;
-  @Output() add = new EventEmitter<RealEstate>();
-  @Output() remove = new EventEmitter<RealEstate>();
 
   /**
    * Tip: Utilize getters to keep templates clean
@@ -63,7 +60,6 @@ export class RealEstateDetailComponent implements OnInit {
     }`;
     let urlString = `${baseUrl}${this.city},${this.street},${this.addressNum}`;
     urlString = urlString.split(' ').join('+');
-    //console.log('gmapsurl: ' + urlString);
     return this.domSanitizer.bypassSecurityTrustResourceUrl(urlString);
   }
 

@@ -1,20 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { RealEstateType } from '../../real-estate-type';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl
-} from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { RealEstateType } from '../../../real-estate-type';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-import * as fromRealEstates from '../../reducers';
+import * as fromRealEstates from '../../../reducers';
 import { Store } from '@ngrx/store';
-import * as CollectionActions from '../../actions/collection.actions';
-import { RealEstate } from '../../../shared/api-client';
 import { storage } from 'firebase';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
-import * as UI from '../../../shared/ui.actions';
+import { RealEstate } from '../../../../shared/api-client';
+import * as CollectionActions from '../../../actions/collection.actions';
 
 interface MediaUrl {
   type: string;
@@ -22,11 +16,13 @@ interface MediaUrl {
 }
 
 @Component({
-  selector: 'app-new-real-estate',
-  templateUrl: './new-real-estate.component.html',
-  styleUrls: ['./new-real-estate.component.css']
+  selector: 'app-real-estate-edit',
+  templateUrl: './real-estate-edit.component.html',
+  styleUrls: ['./real-estate-edit.component.css']
 })
-export class NewRealEstateComponent implements OnInit {
+export class RealEstateEditComponent implements OnInit {
+  @Input() realEstate: RealEstate;
+
   realEstateTypes = RealEstateType;
   newRealEstateFirstForm: FormGroup;
   newRealEstateSecondForm: FormGroup;
@@ -114,7 +110,6 @@ export class NewRealEstateComponent implements OnInit {
     console.log('multiple file upload: ' + event.target.files.length);
     const filesToUpload: File[] = event.target.files;
     for (const file of filesToUpload) {
-      //this.store.dispatch(new UI.StartLoading());
       const randomId = Math.random()
         .toString(36)
         .substring(2);
