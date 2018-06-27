@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -11,25 +11,23 @@ import { tap } from 'rxjs/operators';
   selector: 'app-selected-real-estate-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-real-estate-detail
+    <app-real-estate-detail *ngIf="!isEditMode"
       [realEstate]="realEstate$ | async">
     </app-real-estate-detail>
+    <app-real-estate-edit *ngIf="isEditMode"
+    [realEstate]="realEstate$ | async">
+  </app-real-estate-edit>
+
   `
 })
 export class SelectedRealEstatePageComponent {
   realEstate$: Observable<RealEstate>;
 
+  @Input() isEditMode: boolean;
+
   constructor(private store: Store<fromRealEstates.State>) {
     this.realEstate$ = store.pipe(
       select(fromRealEstates.getSelectedRealEstate)
     ) as Observable<RealEstate>;
-  }
-
-  addToCollection(realEstate: RealEstate) {
-    this.store.dispatch(new CollectionActions.AddRealEstate(realEstate));
-  }
-
-  removeFromCollection(realEstate: RealEstate) {
-    this.store.dispatch(new CollectionActions.RemoveRealEstate(realEstate));
   }
 }

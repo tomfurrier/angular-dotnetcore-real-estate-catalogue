@@ -46,6 +46,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MatPaginatorIntl } from '@angular/material';
 import { CustomMatPaginatorIntl } from './shared/customMatPaginator';
+import { ConfirmDeleteDialogComponent } from './real-estate/components/real-estate/detail/confirm-delete.component';
 
 @NgModule({
   declarations: [

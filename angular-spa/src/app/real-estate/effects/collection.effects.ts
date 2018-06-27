@@ -39,14 +39,16 @@ export class CollectionEffects {
         .collection('realEstates')
         .snapshotChanges()
         .map(docArray => {
-          const sortedArray = docArray.sort(
-            (a, b) =>
-              (a.payload.doc.data() as any).createdAt >
-              (b.payload.doc.data() as any).createdAt
-                ? -1
-                : 1
-          );
-          return sortedArray.map(doc => {
+          const sortedFilteredArray = docArray
+            .filter(r => !(r.payload.doc.data() as any).isDeleted)
+            .sort(
+              (a, b) =>
+                (a.payload.doc.data() as any).createdAt >
+                (b.payload.doc.data() as any).createdAt
+                  ? -1
+                  : 1
+            );
+          return sortedFilteredArray.map(doc => {
             return {
               id: doc.payload.doc.id,
               intent: (doc.payload.doc.data() as any).intent,

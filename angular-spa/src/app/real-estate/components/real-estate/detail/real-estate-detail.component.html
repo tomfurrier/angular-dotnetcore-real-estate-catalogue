@@ -3,6 +3,18 @@
   <mat-card class="item-card">
     <mat-card-title>{{title}}</mat-card-title>
     <mat-card-subtitle>{{price}} M Ft</mat-card-subtitle>
+    <mat-card-actions *ngIf="isAuth$ | async">
+      <a [routerLink]="['/real-estates/edit', id]">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+          <span class="nav-caption">Szerkesztés</span>
+        </button>
+      </a>
+      <button mat-icon-button (click)="delete()">
+        <mat-icon>delete</mat-icon>
+        <span class="nav-caption">Törlés</span>
+      </button>
+    </mat-card-actions>
     <p-galleria *ngIf="images" class="photo-gallery" [images]="images" [showCaption]="false" panelWidth="850" panelHeight="637"
       frameWidth="160" frameHeight="120" [autoPlay]="false"></p-galleria>
     <mat-card-content>
@@ -10,16 +22,7 @@
         {{description}}
       </p>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-icon-button>
-        <mat-icon>perm_contact_calendar</mat-icon>
-        <span class="nav-caption"> Üzletkötő felkeresése</span>
-      </button>
-      Fgalleria<button mat-icon-button>
-        <mat-icon>stars</mat-icon>
-        <span class="nav-caption">Mentés</span>
-      </button> 
-    </mat-card-actions> -->
+
   </mat-card>
   <mat-card class="maps-card">
     <mat-card-title>Térkép</mat-card-title>

@@ -18,6 +18,7 @@ import { SelectedRealEstatePageComponent } from './components/real-estate/select
 import { CreateRealEstateComponent } from './components/real-estate/create-real-estate.component';
 import { ViewRealEstateComponent } from './components/real-estate/view-real-estate.component';
 import { RealEstateEditComponent } from './components/real-estate/edit/real-estate-edit.component';
+import { ConfirmDeleteDialogComponent } from './components/real-estate/detail/confirm-delete.component';
 
 @NgModule({
   imports: [
@@ -51,8 +52,11 @@ import { RealEstateEditComponent } from './components/real-estate/edit/real-esta
     RealEstateDetailComponent,
     SelectedRealEstatePageComponent,
     CreateRealEstateComponent,
-    RealEstateEditComponent
+    RealEstateEditComponent,
+    ConfirmDeleteDialogComponent
   ],
+  entryComponents: [ConfirmDeleteDialogComponent],
+
   providers: [RealEstateExistsGuard]
 })
 export class RealEstateModule {}

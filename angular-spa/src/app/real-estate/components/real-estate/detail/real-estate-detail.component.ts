@@ -9,6 +9,11 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../../../environments/environment';
 import { RealEstate } from '../../../../shared/api-client';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../../app.reducer';
+import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { ConfirmDeleteDialogComponent } from './confirm-delete.component';
 
 @Component({
   selector: 'app-real-estate-detail',
@@ -96,9 +101,11 @@ export class RealEstateDetailComponent implements OnInit {
   }
 
   images: any[];
+  isAuth$: Observable<boolean>;
 
   ngOnInit(): void {
     this.setImages();
+    this.isAuth$ = this.store.select(fromRoot.getIsAuth);
   }
 
   private setImages() {
@@ -117,5 +124,19 @@ export class RealEstateDetailComponent implements OnInit {
     this.images = imageUrls;
   }
 
-  constructor(private domSanitizer: DomSanitizer) {}
+  delete() {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      height: '170px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private store: Store<fromRoot.State>,
+    public dialog: MatDialog
+  ) {}
 }
