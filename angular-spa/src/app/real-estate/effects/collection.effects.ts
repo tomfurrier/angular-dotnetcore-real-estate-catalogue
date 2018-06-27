@@ -67,7 +67,7 @@ export class CollectionEffects {
               lotSize: (doc.payload.doc.data() as any).lotSize,
               roomCount: (doc.payload.doc.data() as any).roomCount,
               mediaUrls: (doc.payload.doc.data() as any).mediaUrls,
-              peviewMediaUrl: (doc.payload.doc.data() as any).peviewMediaUrl,
+              previewMediaUrl: (doc.payload.doc.data() as any).previewMediaUrl,
               newlyBuilt: (doc.payload.doc.data() as any).newlyBuilt,
               constructionYear: (doc.payload.doc.data() as any)
                 .constructionYear,
@@ -109,14 +109,18 @@ export class CollectionEffects {
   updateRealEstateInCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.UpdateRealEstate),
     map(action => (action as UpdateRealEstate).payload),
+    tap(realEstate => console.log(JSON.stringify(realEstate))),
     mergeMap(realEstate =>
       this.db
         .collection('realEstates')
         .doc(realEstate.id)
-        .set({
-          ...realEstate,
-          modifiedAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
+        .set(
+          {
+            ...realEstate,
+            modifiedAt: firebase.firestore.FieldValue.serverTimestamp()
+          },
+          { merge: true }
+        )
         .then(() => new UpdateRealEstateSuccess(realEstate))
         .catch(() => new UpdateRealEstateFail(realEstate))
     ),

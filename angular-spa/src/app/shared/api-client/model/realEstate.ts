@@ -14,6 +14,7 @@ import { Tag } from './tag';
 
 export interface RealEstate {
   id?: string;
+  isDeleted: boolean;
   /**
    * For rent or buy
    */
@@ -29,7 +30,7 @@ export interface RealEstate {
   lotSize?: number;
   roomCount: string;
   mediaUrls: Array<any>;
-  peviewMediaUrl: any;
+  previewMediaUrl?: string;
   newlyBuilt?: boolean;
   constructionYear?: number;
   /**
