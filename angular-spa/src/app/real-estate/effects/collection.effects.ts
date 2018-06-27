@@ -20,7 +20,10 @@ import {
   LoadSuccess,
   RemoveRealEstate,
   RemoveRealEstateFail,
-  RemoveRealEstateSuccess
+  RemoveRealEstateSuccess,
+  UpdateRealEstate,
+  UpdateRealEstateSuccess,
+  UpdateRealEstateFail
 } from './../actions/collection.actions';
 import { RealEstate, RealestatesService } from '../../shared/api-client';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -51,6 +54,7 @@ export class CollectionEffects {
           return sortedFilteredArray.map(doc => {
             return {
               id: doc.payload.doc.id,
+              isDeleted: (doc.payload.doc.data() as any).isDeleted,
               intent: (doc.payload.doc.data() as any).intent,
               title: (doc.payload.doc.data() as any).title,
               price: (doc.payload.doc.data() as any).price,
@@ -88,7 +92,8 @@ export class CollectionEffects {
         .collection('realEstates')
         .add({
           ...realEstate,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          modifiedAt: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(doc => {
           const result = { ...realEstate };
@@ -96,6 +101,24 @@ export class CollectionEffects {
           return new AddRealEstateSuccess(result);
         })
         .catch(() => new AddRealEstateFail(realEstate))
+    ),
+    tap(() => this.router.navigate(['/']))
+  );
+
+  @Effect()
+  updateRealEstateInCollection$: Observable<Action> = this.actions$.pipe(
+    ofType(CollectionActionTypes.UpdateRealEstate),
+    map(action => (action as UpdateRealEstate).payload),
+    mergeMap(realEstate =>
+      this.db
+        .collection('realEstates')
+        .doc(realEstate.id)
+        .set({
+          ...realEstate,
+          modifiedAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => new UpdateRealEstateSuccess(realEstate))
+        .catch(() => new UpdateRealEstateFail(realEstate))
     ),
     tap(() => this.router.navigate(['/']))
   );

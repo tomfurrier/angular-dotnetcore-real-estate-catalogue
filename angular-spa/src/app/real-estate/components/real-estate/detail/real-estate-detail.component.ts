@@ -14,6 +14,7 @@ import * as fromRoot from '../../../../app.reducer';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from './confirm-delete.component';
+import * as CollectionActions from '../../../actions/collection.actions';
 
 @Component({
   selector: 'app-real-estate-detail',
@@ -131,6 +132,14 @@ export class RealEstateDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      if (result === true) {
+        this.store.dispatch(
+          new CollectionActions.UpdateRealEstate({
+            ...this.realEstate,
+            isDeleted: true
+          })
+        );
+      }
     });
   }
 

@@ -5,6 +5,9 @@ export enum CollectionActionTypes {
   AddRealEstate = '[Collection] Add RealEstate',
   AddRealEstateSuccess = '[Collection] Add RealEstate Success',
   AddRealEstateFail = '[Collection] Add RealEstate Fail',
+  UpdateRealEstate = '[Collection] Update RealEstate',
+  UpdateRealEstateSuccess = '[Collection] Update RealEstate Success',
+  UpdateRealEstateFail = '[Collection] Update RealEstate Fail',
   RemoveRealEstate = '[Collection] Remove RealEstate',
   RemoveRealEstateSuccess = '[Collection] Remove RealEstate Success',
   RemoveRealEstateFail = '[Collection] Remove RealEstate Fail',
@@ -30,6 +33,27 @@ export class AddRealEstateSuccess implements Action {
 
 export class AddRealEstateFail implements Action {
   readonly type = CollectionActionTypes.AddRealEstateFail;
+
+  constructor(public payload: RealEstate) {}
+}
+
+/**
+ * Update RealEstate in Collection Actions
+ */
+export class UpdateRealEstate implements Action {
+  readonly type = CollectionActionTypes.UpdateRealEstate;
+
+  constructor(public payload: RealEstate) {}
+}
+
+export class UpdateRealEstateSuccess implements Action {
+  readonly type = CollectionActionTypes.UpdateRealEstateSuccess;
+
+  constructor(public payload: RealEstate) {}
+}
+
+export class UpdateRealEstateFail implements Action {
+  readonly type = CollectionActionTypes.UpdateRealEstateFail;
 
   constructor(public payload: RealEstate) {}
 }
@@ -78,6 +102,9 @@ export type CollectionActionsUnion =
   | AddRealEstate
   | AddRealEstateSuccess
   | AddRealEstateFail
+  | UpdateRealEstate
+  | UpdateRealEstateSuccess
+  | UpdateRealEstateFail
   | RemoveRealEstate
   | RemoveRealEstateSuccess
   | RemoveRealEstateFail
