@@ -37,7 +37,7 @@ export class RealEstateEditComponent implements OnInit {
   imageUploadsInProgressNum: number;
 
   mediaUrls: MediaUrl[] = [];
-  previewMediaUrl: MediaUrl;
+  previewMediaUrl: MediaUrl = null;
 
   constructor(
     private store: Store<fromRealEstates.State>,
@@ -83,7 +83,7 @@ export class RealEstateEditComponent implements OnInit {
     this.newRealEstateFirstForm.setValue({
       title: this.realEstate.title,
       description: this.realEstate.description,
-      realEstateType: RealEstateType[0],
+      realEstateType: this.realEstate.realEstateType,
       intent: this.realEstate.intent,
       price: this.realEstate.price
     });
@@ -137,22 +137,36 @@ export class RealEstateEditComponent implements OnInit {
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
       console.log('uploadPreviewImage: ' + downloadURLs);
       this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
+      console.table(this.previewMediaUrl);
+      console.log(
+        'imageUploadInProgress: ' +
+          this.imageUploadInProgress +
+          ', hasUploadedImage: ' +
+          this.hasUploadedImage
+      );
     });
   }
 
   upload(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      console.log('uploadPreviewImage: ' + downloadURLs);
+      console.log('filesToUpload: ' + downloadURLs);
       this.mediaUrls = downloadURLs.map(u => {
         return { type: 'image', url: u };
       });
+      console.table(this.mediaUrls);
+      console.log(
+        'imageUploadInProgress: ' +
+          this.imageUploadInProgress +
+          ', hasUploadedImage: ' +
+          this.hasUploadedImage
+      );
     });
   }
 
   async uploadFilesToFirestore(filesToUpload: File[]): Promise<string[]> {
     const fileUrls: string[] = [];
-    this.imageUploadsInProgressNum = filesToUpload.length;
+    this.imageUploadsInProgressNum += filesToUpload.length;
 
     for (const file of filesToUpload) {
       const randomId = Math.random()
@@ -180,6 +194,6 @@ export class RealEstateEditComponent implements OnInit {
   }
 
   get hasUploadedImage() {
-    return this.mediaUrls.length > 0;
+    return this.mediaUrls.length > 0 && this.previewMediaUrl !== null;
   }
 }
