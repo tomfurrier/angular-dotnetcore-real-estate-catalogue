@@ -117,6 +117,24 @@ export class CollectionEffects {
         .set(
           {
             ...realEstate,
+            district: realEstate.district ? realEstate.district : null,
+            lotSize: realEstate.lotSize ? realEstate.lotSize : null,
+            constructionYear: realEstate.constructionYear
+              ? realEstate.constructionYear
+              : null,
+            intent: realEstate.intent ? realEstate.intent : null,
+            newlyBuilt: realEstate.newlyBuilt ? realEstate.newlyBuilt : null,
+            realEstateType: realEstate.realEstateType
+              ? realEstate.realEstateType
+              : null,
+            previewMediaUrl: realEstate.previewMediaUrl
+              ? realEstate.previewMediaUrl
+              : null,
+            tags: realEstate.tags ? realEstate.tags : null,
+            sellingStatus: realEstate.sellingStatus
+              ? realEstate.sellingStatus
+              : null,
+            id: realEstate.id ? realEstate.id : null,
             modifiedAt: firebase.firestore.FieldValue.serverTimestamp()
           },
           { merge: true }
