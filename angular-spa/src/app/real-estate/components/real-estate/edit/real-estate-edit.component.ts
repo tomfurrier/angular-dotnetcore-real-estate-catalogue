@@ -22,6 +22,7 @@ interface MediaUrl {
 })
 export class RealEstateEditComponent implements OnInit {
   @Input() realEstate: RealEstate;
+  @Input() editExistingRealEstate: boolean;
 
   realEstateTypes = RealEstateType;
   newRealEstateFirstForm: FormGroup;
@@ -45,6 +46,9 @@ export class RealEstateEditComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    if (this.editExistingRealEstate) {
+      this.setFormValues();
+    }
   }
 
   createForm(): void {
@@ -75,6 +79,32 @@ export class RealEstateEditComponent implements OnInit {
     this.newRealEstateFourthForm = new FormGroup({});
   }
 
+  setFormValues(): void {
+    this.newRealEstateFirstForm.setValue({
+      title: this.realEstate.title,
+      description: this.realEstate.description,
+      realEstateType: RealEstateType[0],
+      intent: this.realEstate.intent,
+      price: this.realEstate.price
+    });
+
+    this.newRealEstateSecondForm.setValue({
+      zipCode: this.realEstate.zipCode,
+      city: this.realEstate.city,
+      district: this.realEstate.district ? this.realEstate.district : null,
+      street: this.realEstate.street,
+      addressNum: this.realEstate.addressNum
+    });
+
+    this.newRealEstateThirdForm.setValue({
+      floorArea: this.realEstate.floorArea,
+      lotSize: this.realEstate.lotSize ? this.realEstate.lotSize : null,
+      roomCount: this.realEstate.roomCount,
+      newlyBuilt: this.realEstate.newlyBuilt,
+      constructionYear: this.realEstate.constructionYear
+    });
+  }
+
   save(): void {
     const newRealEstate = {
       title: this.newRealEstateFirstForm.get('title').value,
@@ -94,23 +124,29 @@ export class RealEstateEditComponent implements OnInit {
       newlyBuilt: this.newRealEstateThirdForm.get('newlyBuilt').value,
       constructionYear: this.newRealEstateThirdForm.get('constructionYear')
         .value,
-      mediaUrls: this.mediaUrls
+      mediaUrls: this.mediaUrls,
+      previewMediaUrl: this.previewMediaUrl.url,
+      isDeleted: false
     } as RealEstate;
 
     this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
   }
 
-  async uploadPreviewImage(event) {
+  uploadPreviewImage(event) {
     const filesToUpload: File[] = event.target.files;
-    const downloadURLs = await this.uploadFilesToFirestore(filesToUpload);
-    this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
+    this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
+      console.log('uploadPreviewImage: ' + downloadURLs);
+      this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
+    });
   }
 
-  async upload(event) {
+  upload(event) {
     const filesToUpload: File[] = event.target.files;
-    const downloadURLs = await this.uploadFilesToFirestore(filesToUpload);
-    this.mediaUrls = downloadURLs.map(u => {
-      return { type: 'image', url: u };
+    this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
+      console.log('uploadPreviewImage: ' + downloadURLs);
+      this.mediaUrls = downloadURLs.map(u => {
+        return { type: 'image', url: u };
+      });
     });
   }
 

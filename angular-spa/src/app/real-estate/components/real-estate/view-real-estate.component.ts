@@ -10,7 +10,7 @@ import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-view-real-estate',
-  template: `<app-selected-real-estate-page></app-selected-real-estate-page>`
+  template: `<app-selected-real-estate-page [isEditMode]="isEditMode"></app-selected-real-estate-page>`
 })
 export class ViewRealEstateComponent implements OnDestroy {
   actionsSubscription: Subscription;
@@ -21,8 +21,7 @@ export class ViewRealEstateComponent implements OnDestroy {
       .pipe(map(params => new RealEstateActions.Select(params.id)))
       .subscribe(store);
 
-    this.isEditMode = route.snapshot.url.includes(new UrlSegment('edit', {}));
-    console.log('isEditMode: ' + this.isEditMode);
+    this.isEditMode = route.snapshot.url.some(u => u.path === 'edit');
   }
 
   ngOnDestroy() {

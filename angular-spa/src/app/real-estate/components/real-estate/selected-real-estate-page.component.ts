@@ -15,7 +15,7 @@ import { tap } from 'rxjs/operators';
       [realEstate]="realEstate$ | async">
     </app-real-estate-detail>
     <app-real-estate-edit *ngIf="isEditMode"
-    [realEstate]="realEstate$ | async">
+    [realEstate]="realEstate$ | async" [editExistingRealEstate]="isEditMode">
   </app-real-estate-edit>
 
   `

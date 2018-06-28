@@ -1,5 +1,6 @@
 <section class="new-real-estate-form">
-  <h3 fxLayoutAlign="center center">Új ingatlan hirdetés létrehozása</h3>
+  <h3 fxLayoutAlign="center center" *ngIf="!editExistingRealEstate">Új ingatlan hirdetés létrehozása</h3>
+  <h3 fxLayoutAlign="center center" *ngIf="editExistingRealEstate">Ingatlan hirdetés szerkesztése</h3>
   <mat-vertical-stepper linear=false fxLayout="column" fxLayoutAlign="center center" #stepper>
     <mat-step [stepControl]="newRealEstateFirstForm">
       <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="newRealEstateFirstForm">
