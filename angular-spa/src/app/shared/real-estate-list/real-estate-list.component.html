@@ -10,8 +10,8 @@
           </mat-card-subtitle>
 
           <mat-card-content>
-            <a *ngIf="realEstate.mediaUrls.length > 0">
-              <img [src]="realEstate.mediaUrls[0].url" alt="Ingatlan nyitókép" class="cover-img">
+            <a *ngIf="realEstate.previewMediaUrl">
+              <img [src]="realEstate.previewMediaUrl" alt="Ingatlan nyitókép" class="cover-img">
             </a>
             <!-- <ngb-carousel>
               <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">

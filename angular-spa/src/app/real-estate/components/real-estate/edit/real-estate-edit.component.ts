@@ -106,7 +106,8 @@ export class RealEstateEditComponent implements OnInit {
   }
 
   save(): void {
-    const newRealEstate = {
+    this.realEstate = {
+      ...this.realEstate,
       title: this.newRealEstateFirstForm.get('title').value,
 
       description: this.newRealEstateFirstForm.get('description').value,
@@ -124,43 +125,38 @@ export class RealEstateEditComponent implements OnInit {
       newlyBuilt: this.newRealEstateThirdForm.get('newlyBuilt').value,
       constructionYear: this.newRealEstateThirdForm.get('constructionYear')
         .value,
-      mediaUrls: this.mediaUrls,
-      previewMediaUrl: this.previewMediaUrl.url,
+      mediaUrls:
+        this.mediaUrls.length > 0 ? this.mediaUrls : this.realEstate.mediaUrls,
+      previewMediaUrl: this.previewMediaUrl.url
+        ? this.previewMediaUrl.url
+        : this.realEstate.previewMediaUrl,
       isDeleted: false
     } as RealEstate;
 
-    this.store.dispatch(new CollectionActions.AddRealEstate(newRealEstate));
+    if (this.editExistingRealEstate) {
+      console.log('realEstate id: ' + this.realEstate.id);
+
+      this.store.dispatch(
+        new CollectionActions.UpdateRealEstate(this.realEstate)
+      );
+    } else {
+      this.store.dispatch(new CollectionActions.AddRealEstate(this.realEstate));
+    }
   }
 
   uploadPreviewImage(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      console.log('uploadPreviewImage: ' + downloadURLs);
       this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
-      console.table(this.previewMediaUrl);
-      console.log(
-        'imageUploadInProgress: ' +
-          this.imageUploadInProgress +
-          ', hasUploadedImage: ' +
-          this.hasUploadedImage
-      );
     });
   }
 
   upload(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      console.log('filesToUpload: ' + downloadURLs);
       this.mediaUrls = downloadURLs.map(u => {
         return { type: 'image', url: u };
       });
-      console.table(this.mediaUrls);
-      console.log(
-        'imageUploadInProgress: ' +
-          this.imageUploadInProgress +
-          ', hasUploadedImage: ' +
-          this.hasUploadedImage
-      );
     });
   }
 

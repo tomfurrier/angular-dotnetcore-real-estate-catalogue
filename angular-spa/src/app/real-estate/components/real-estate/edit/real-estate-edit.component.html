@@ -124,7 +124,8 @@
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
           <!-- TODO form validation -->
-          <button flex type="submit" mat-raised-button color="primary" [disabled]="imageUploadInProgress  || !hasUploadedImage" (click)="save()">Mentés</button>
+          <button flex type="submit" mat-raised-button color="primary" [disabled]="(imageUploadInProgress  || !hasUploadedImage) && !editExistingRealEstate"
+            (click)="save()">Mentés</button>
         </div>
       </form>
     </mat-step>
