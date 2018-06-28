@@ -127,7 +127,7 @@ export class RealEstateEditComponent implements OnInit {
         .value,
       mediaUrls:
         this.mediaUrls.length > 0 ? this.mediaUrls : this.realEstate.mediaUrls,
-      previewMediaUrl: this.previewMediaUrl.url
+      previewMediaUrl: this.previewMediaUrl
         ? this.previewMediaUrl.url
         : this.realEstate.previewMediaUrl,
       isDeleted: false
