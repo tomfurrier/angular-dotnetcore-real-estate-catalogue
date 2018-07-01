@@ -33,7 +33,7 @@ export class RealEstateEditComponent implements OnInit {
   uploadProgress: Subject<number>;
   downloadURL: string;
 
-  imageUploadsInProgressNum: number;
+  imageUploadsInProgressNum = 0;
 
   mediaUrls: MediaUrl[] = [];
   previewMediaUrl: MediaUrl = null;
@@ -171,19 +171,15 @@ export class RealEstateEditComponent implements OnInit {
         .toString(36)
         .substring(2);
       const ref = this.afStorage.ref(randomId);
-
       const uploadedFile = await ref
         .put(file)
         .catch(err => console.log(`upload error: ${err}`));
-
       const downloadURL = await uploadedFile.ref
         .getDownloadURL()
         .catch(err => console.log(`getDownloadURL error: ${err}`));
-
       fileUrls.push(downloadURL);
       this.imageUploadsInProgressNum--;
     }
-
     return fileUrls;
   }
 
@@ -193,5 +189,13 @@ export class RealEstateEditComponent implements OnInit {
 
   get hasUploadedImage() {
     return this.mediaUrls.length > 0 && this.previewMediaUrl !== null;
+  }
+
+  get allFormsAreValid() {
+    return (
+      this.newRealEstateFirstForm.valid &&
+      this.newRealEstateSecondForm.valid &&
+      this.newRealEstateThirdForm.valid
+    );
   }
 }
