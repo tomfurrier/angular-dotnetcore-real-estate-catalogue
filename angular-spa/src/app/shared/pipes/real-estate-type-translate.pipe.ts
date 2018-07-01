@@ -4,7 +4,6 @@ import { RealEstate } from '../api-client';
 @Pipe({ name: 'realEstateTypeTranslate' })
 export class RealEstateTypeTranslatePipe implements PipeTransform {
   transform(value, args: string[]): any {
-    console.log('RealEstateTypeTranslatePipe: ' + value);
     switch (value as RealEstate.RealEstateTypeEnum) {
       case RealEstate.RealEstateTypeEnum.House:
         return 'Ház';
