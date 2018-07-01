@@ -16,7 +16,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" required>
-            <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.key">{{item.value}}</mat-option>
+            <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.value">{{item.value | realEstateTypeTranslate}}</mat-option>
           </mat-select>
           <mat-error *ngIf="newRealEstateFirstForm.controls['realEstateType'].errors?.required && newRealEstateFirstForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>

@@ -35,7 +35,7 @@
       <mat-card-title>Ár</mat-card-title>
       <mat-card-subtitle>{{price}} M Forint</mat-card-subtitle>
       <mat-card-title *ngIf="realEstateType">Épület típusa</mat-card-title>
-      <mat-card-subtitle *ngIf="realEstateType">{{realEstateType}}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="realEstateType">{{realEstateType | realEstateTypeTranslate}}</mat-card-subtitle>
       <mat-card-title>Alapterület</mat-card-title>
       <mat-card-subtitle>{{floorArea}} m2</mat-card-subtitle>
     </mat-card>

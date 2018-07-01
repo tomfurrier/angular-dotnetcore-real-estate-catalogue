@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from './confirm-delete.component';
 import * as CollectionActions from '../../../actions/collection.actions';
-import { RealEstateType } from '../../../../shared/real-estate-type';
 
 @Component({
   selector: 'app-real-estate-detail',
@@ -26,7 +25,7 @@ import { RealEstateType } from '../../../../shared/real-estate-type';
 export class RealEstateDetailComponent implements OnInit {
   @Input() realEstate: RealEstate;
 
-  realEstateTypes: RealEstateType;
+  realEstateTypes: RealEstate.RealEstateTypeEnum;
 
   /**
    * Tip: Utilize getters to keep templates clean

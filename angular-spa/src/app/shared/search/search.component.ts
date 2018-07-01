@@ -5,10 +5,10 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { RealEstateType } from '../../shared/real-estate-type';
 import { SearchService } from './search.service';
 import { SearchFilter } from './searchFilter.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { RealEstate } from '../api-client';
 
 @Component({
   selector: 'app-real-estate-search',
@@ -29,7 +29,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class SearchComponent implements OnInit {
-  realEstateTypes = RealEstateType;
+  realEstateTypes = RealEstate.RealEstateTypeEnum;
   searchForm: FormGroup;
 
   constructor(private searchService: SearchService) {}

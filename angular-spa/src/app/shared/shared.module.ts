@@ -11,6 +11,7 @@ import { RealEstateListComponent } from './real-estate-list/real-estate-list.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { KeysPipe } from './pipes/keys.pipe';
+import { RealEstateTypeTranslatePipe } from './pipes/real-estate-type-translate.pipe';
 
 @NgModule({
   imports: [
@@ -36,8 +37,14 @@ import { KeysPipe } from './pipes/keys.pipe';
     RouterModule,
     RealEstateListComponent,
     SearchComponent,
-    KeysPipe
+    KeysPipe,
+    RealEstateTypeTranslatePipe
   ],
-  declarations: [SearchComponent, RealEstateListComponent, KeysPipe]
+  declarations: [
+    SearchComponent,
+    RealEstateListComponent,
+    KeysPipe,
+    RealEstateTypeTranslatePipe
+  ]
 })
 export class SharedModule {}
