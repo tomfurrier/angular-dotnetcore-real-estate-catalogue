@@ -111,6 +111,8 @@ export class CollectionEffects {
           {
             ...realEstate,
             district: realEstate.district ? realEstate.district : null,
+            addressNum: realEstate.addressNum ? realEstate.addressNum : null,
+            street: realEstate.street ? realEstate.street : null,
             lotSize: realEstate.lotSize ? realEstate.lotSize : null,
             constructionYear: realEstate.constructionYear
               ? realEstate.constructionYear

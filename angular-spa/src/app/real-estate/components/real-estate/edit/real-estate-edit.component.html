@@ -51,12 +51,10 @@
           <input type="number" placeholder="Kerület" min="1" max="23" class="form-control" formControlName="district" matInput>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" placeholder="Utca" class="form-control" formControlName="street" matInput required>
-          <mat-error *ngIf="newRealEstateSecondForm.controls['street'].errors?.required && newRealEstateSecondForm.controls['street'].touched">Kötelező kitölteni.</mat-error>
+          <input type="text" placeholder="Utca" class="form-control" formControlName="street" matInput>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" placeholder="Házszám" class="form-control" formControlName="addressNum" matInput required>
-          <mat-error *ngIf="newRealEstateSecondForm.controls['addressNum'].errors?.required && newRealEstateSecondForm.controls['addressNum'].touched">Kötelező kitölteni.</mat-error>
+          <input type="text" placeholder="Házszám" class="form-control" formControlName="addressNum" matInput>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Vissza</button>
