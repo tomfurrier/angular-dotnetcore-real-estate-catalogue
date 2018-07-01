@@ -37,3 +37,7 @@ body
 .description {
   text-align: justify;
 }
+
+.ui-galleria-panel {
+  text-align: center;
+}
