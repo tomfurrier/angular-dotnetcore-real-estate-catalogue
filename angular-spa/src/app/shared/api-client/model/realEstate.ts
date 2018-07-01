@@ -24,8 +24,8 @@ export interface RealEstate {
   city: string;
   zipCode: number;
   district?: number;
-  street: string;
-  addressNum: string;
+  street?: string;
+  addressNum?: string;
   floorArea: number;
   lotSize?: number;
   roomCount: string;
