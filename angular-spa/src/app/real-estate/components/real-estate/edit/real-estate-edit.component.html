@@ -86,6 +86,11 @@
         <mat-form-field *ngIf="newRealEstateThirdForm.controls['newlyBuilt'].value==false">
           <input type="number" placeholder="Építés éve" class="form-control" formControlName="constructionYear" matInput>
         </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" placeholder="SEO kulcsszavak" class="form-control" formControlName="seoKeywords" matInput>
+        </mat-form-field>
+
         <div>
           <button mat-button matStepperPrevious>Vissza</button>
           <button mat-button matStepperNext color="accent">Tovább</button>

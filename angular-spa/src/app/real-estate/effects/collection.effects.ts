@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { defer, Observable, of } from 'rxjs';
-import {
-  catchError,
-  map,
-  mergeMap,
-  switchMap,
-  toArray,
-  tap
-} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import {
   AddRealEstate,
@@ -25,9 +18,8 @@ import {
   UpdateRealEstateSuccess,
   UpdateRealEstateFail
 } from './../actions/collection.actions';
-import { RealEstate, RealestatesService } from '../../shared/api-client';
+import { RealEstate } from '../../shared/api-client';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
@@ -71,6 +63,7 @@ export class CollectionEffects {
               newlyBuilt: (doc.payload.doc.data() as any).newlyBuilt,
               constructionYear: (doc.payload.doc.data() as any)
                 .constructionYear,
+              seoKeywords: (doc.payload.doc.data() as any).seoKeywords,
               realEstateType: (doc.payload.doc.data() as any).realEstateType,
               description: (doc.payload.doc.data() as any).description
             };
@@ -124,6 +117,7 @@ export class CollectionEffects {
               : null,
             intent: realEstate.intent ? realEstate.intent : null,
             newlyBuilt: realEstate.newlyBuilt ? realEstate.newlyBuilt : null,
+            seoKeywords: realEstate.seoKeywords ? realEstate.seoKeywords : null,
             realEstateType: realEstate.realEstateType
               ? realEstate.realEstateType
               : null,

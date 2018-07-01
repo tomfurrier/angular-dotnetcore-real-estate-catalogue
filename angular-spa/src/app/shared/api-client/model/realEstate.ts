@@ -33,6 +33,7 @@ export interface RealEstate {
   previewMediaUrl?: string;
   newlyBuilt?: boolean;
   constructionYear?: number;
+  seoKeywords?: string;
   /**
    * Real estate type
    */

@@ -72,7 +72,8 @@ export class RealEstateEditComponent implements OnInit {
       lotSize: new FormControl(''),
       roomCount: new FormControl('', [Validators.required]),
       newlyBuilt: new FormControl(''),
-      constructionYear: new FormControl('')
+      constructionYear: new FormControl(''),
+      seoKeywords: new FormControl('')
     });
 
     this.newRealEstateFourthForm = new FormGroup({});
@@ -100,7 +101,8 @@ export class RealEstateEditComponent implements OnInit {
       lotSize: this.realEstate.lotSize ? this.realEstate.lotSize : null,
       roomCount: this.realEstate.roomCount,
       newlyBuilt: this.realEstate.newlyBuilt,
-      constructionYear: this.realEstate.constructionYear
+      constructionYear: this.realEstate.constructionYear,
+      seoKeywords: this.realEstate.seoKeywords
     });
   }
 
@@ -124,6 +126,7 @@ export class RealEstateEditComponent implements OnInit {
       newlyBuilt: this.newRealEstateThirdForm.get('newlyBuilt').value,
       constructionYear: this.newRealEstateThirdForm.get('constructionYear')
         .value,
+      seoKeywords: this.newRealEstateThirdForm.get('seoKeywords').value,
       mediaUrls:
         this.mediaUrls.length > 0 ? this.mediaUrls : this.realEstate.mediaUrls,
       previewMediaUrl: this.previewMediaUrl
