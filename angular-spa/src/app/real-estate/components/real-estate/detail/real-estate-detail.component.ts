@@ -66,7 +66,7 @@ export class RealEstateDetailComponent implements OnInit {
     const baseUrl = `https://www.google.com/maps/embed/v1/place?key=${
       environment.googleMapsApiKey
     }`;
-    let urlString = `${baseUrl}${this.city},${this.street},${this.addressNum}`;
+    let urlString = `${baseUrl}${this.city},${this.street}`;
     urlString = urlString.split(' ').join('+');
     return this.domSanitizer.bypassSecurityTrustResourceUrl(urlString);
   }
