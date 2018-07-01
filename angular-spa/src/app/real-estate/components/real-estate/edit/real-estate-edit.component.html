@@ -16,15 +16,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" required>
-            <mat-option value="realEstateTypes.flat">Lakás</mat-option>
-            <mat-option value="realEstateTypes.house">Ház</mat-option>
-            <mat-option value="realEstateTypes.rentedRoom">Albérlet</mat-option>
-            <mat-option value="realEstateTypes.office">Iroda</mat-option>
-            <mat-option value="realEstateTypes.garage">Garázs</mat-option>
-            <mat-option value="realEstateTypes.site">Telek</mat-option>
-            <mat-option value="realEstateTypes.summerHouse">Nyaraló</mat-option>
-            <mat-option value="realEstateTypes.agriculturalArea">Mezőgazdasági terület</mat-option>
-            <mat-option value="realEstateTypes.soil">Termőföld</mat-option>
+            <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.key">{{item.value}}</mat-option>
           </mat-select>
           <mat-error *ngIf="newRealEstateFirstForm.controls['realEstateType'].errors?.required && newRealEstateFirstForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>

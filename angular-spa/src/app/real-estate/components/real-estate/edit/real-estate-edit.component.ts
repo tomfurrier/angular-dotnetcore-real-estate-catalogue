@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RealEstateType } from '../../../real-estate-type';
+import { RealEstateType } from '../../../../shared/real-estate-type';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import * as fromRealEstates from '../../../reducers';

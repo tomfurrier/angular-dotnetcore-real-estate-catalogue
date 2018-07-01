@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { RealEstateListComponent } from './real-estate-list/real-estate-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
   imports: [
@@ -34,8 +35,9 @@ import { NgxImageGalleryModule } from 'ngx-image-gallery';
     ReactiveFormsModule,
     RouterModule,
     RealEstateListComponent,
-    SearchComponent
+    SearchComponent,
+    KeysPipe
   ],
-  declarations: [SearchComponent, RealEstateListComponent]
+  declarations: [SearchComponent, RealEstateListComponent, KeysPipe]
 })
 export class SharedModule {}

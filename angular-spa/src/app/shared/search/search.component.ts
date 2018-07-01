@@ -5,7 +5,7 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { RealEstateType } from '../../real-estate/real-estate-type';
+import { RealEstateType } from '../../shared/real-estate-type';
 import { SearchService } from './search.service';
 import { SearchFilter } from './searchFilter.model';
 import { trigger, transition, style, animate } from '@angular/animations';
