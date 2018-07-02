@@ -2,7 +2,7 @@
   fxLayoutAlign="center center">
   <mat-form-field fxFlex="19%">
     <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" (change)="onTypeFilterChange($event)">
-      <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.key">{{item.value}}</mat-option>
+      <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.key">{{item.value | realEstateTypeTranslate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field fxFlex="35%">
