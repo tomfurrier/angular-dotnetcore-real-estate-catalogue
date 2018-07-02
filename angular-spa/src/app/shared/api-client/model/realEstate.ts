@@ -22,7 +22,7 @@ export interface RealEstate {
   title: string;
   price: number;
   city: string;
-  zipCode: number;
+  zipCode?: number;
   district?: number;
   street?: string;
   addressNum?: string;

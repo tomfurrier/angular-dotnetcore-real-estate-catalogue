@@ -39,8 +39,7 @@
         <ng-template matStepLabel>Cím</ng-template>
 
         <mat-form-field>
-          <input type="number" placeholder="Irányítószám" class="form-control" formControlName="zipCode" matInput required>
-          <mat-error *ngIf="newRealEstateSecondForm.controls['zipCode'].errors?.required && newRealEstateSecondForm.controls['zipCode'].touched">Kötelező kitölteni.</mat-error>
+          <input type="number" placeholder="Irányítószám" class="form-control" formControlName="zipCode" matInput>
         </mat-form-field>
         <mat-form-field>
           <input type="text" placeholder="Település" class="form-control" formControlName="city" matInput required>

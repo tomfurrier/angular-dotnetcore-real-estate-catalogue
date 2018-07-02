@@ -60,7 +60,7 @@ export class RealEstateEditComponent implements OnInit {
     });
 
     this.newRealEstateSecondForm = new FormGroup({
-      zipCode: new FormControl('', [Validators.required]),
+      zipCode: new FormControl(''),
       city: new FormControl('', [Validators.required]),
       district: new FormControl(''),
       street: new FormControl(''),
