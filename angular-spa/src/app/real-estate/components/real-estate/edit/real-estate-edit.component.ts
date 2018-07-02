@@ -55,7 +55,7 @@ export class RealEstateEditComponent implements OnInit {
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       realEstateType: new FormControl('', [Validators.required]),
-      intent: new FormControl('', [Validators.required]),
+      intent: new FormControl(''), // it's required but cant use validator
       price: new FormControl('', [Validators.required])
     });
 

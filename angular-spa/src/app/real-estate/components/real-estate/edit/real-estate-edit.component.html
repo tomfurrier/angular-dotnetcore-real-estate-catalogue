@@ -15,7 +15,7 @@
           <mat-error *ngIf="newRealEstateFirstForm.controls['description'].errors?.required && newRealEstateFirstForm.controls['description'].touched">Kötelező kitölteni.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" required>
+          <mat-select placeholder="Ingatlan típusa" formControlName="realEstateType" matInput required>
             <mat-option *ngFor="let item of realEstateTypes | keys" [value]="item.value">{{item.value | realEstateTypeTranslate}}</mat-option>
           </mat-select>
           <mat-error *ngIf="newRealEstateFirstForm.controls['realEstateType'].errors?.required && newRealEstateFirstForm.controls['realEstateType'].touched">Kötelező kitölteni.</mat-error>
@@ -118,7 +118,6 @@
 
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
-          <!-- TODO form validation -->
           <button flex type="submit" mat-raised-button color="primary" [disabled]="!allFormsAreValid || imageUploadInProgress || (!hasUploadedImage && !editExistingRealEstate)"
             (click)="save()">Mentés</button>
         </div>
