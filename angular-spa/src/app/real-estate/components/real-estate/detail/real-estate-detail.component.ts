@@ -123,12 +123,15 @@ export class RealEstateDetailComponent implements OnInit {
         });
       }
     }
-    console.log('images: ' + JSON.stringify(imageUrls));
     this.images = imageUrls;
   }
 
   delete() {
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      data: {
+        dialogTitle: 'Hirdetés törlése.',
+        dialogContent: 'Biztos törli a hirdetést?'
+      },
       height: '170px'
     });
 

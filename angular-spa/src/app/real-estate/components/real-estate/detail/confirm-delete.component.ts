@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+
+export interface DialogData {
+  dialogTitle: string;
+  dialogContent: string;
+}
 
 @Component({
   selector: 'app-confirm-delete-dialog',
-  template: `<h2 mat-dialog-title>Hirdetés törlése.</h2>
-  <mat-dialog-content>Biztos törli a hirdetést?</mat-dialog-content>
+  template: `<h2 mat-dialog-title>{{data.dialogTitle}}</h2>
+  <mat-dialog-content>{{data.dialogContent}}</mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Nem</button>
     <button mat-button [mat-dialog-close]="true">Igen</button>
   </mat-dialog-actions>`
 })
-export class ConfirmDeleteDialogComponent {}
+export class ConfirmDeleteDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}

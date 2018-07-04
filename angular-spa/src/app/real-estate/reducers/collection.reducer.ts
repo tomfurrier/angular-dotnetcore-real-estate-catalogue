@@ -55,6 +55,14 @@ export function reducer(
       };
     }
 
+    case CollectionActionTypes.UpdateRealEstateSuccess: {
+      // TODO trigger state update..
+      return {
+        ...state,
+        ids: [...state.ids, action.payload.id]
+      };
+    }
+
     default: {
       return state;
     }

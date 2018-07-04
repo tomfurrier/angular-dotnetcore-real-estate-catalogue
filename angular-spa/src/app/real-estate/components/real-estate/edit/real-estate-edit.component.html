@@ -115,7 +115,7 @@
           </mat-list-item>
           <mat-list-item class="dynamic-content">
             <mat-list>
-              <mat-list-item *ngFor="let media of realEstate?.mediaUrls; let i = index" class="dynamic-content media-list-item">
+              <mat-list-item *ngFor="let media of mediaUrls; let i = index" class="dynamic-content media-list-item">
                 <span>{{ i + 1 }}.</span>
                 <img class="preview-image-small" *ngIf="media?.type==='image'" [src]="media.url" alt="Előnézeti kép">
                 <button mat-icon-button (click)="up(i)" hint="Fel">

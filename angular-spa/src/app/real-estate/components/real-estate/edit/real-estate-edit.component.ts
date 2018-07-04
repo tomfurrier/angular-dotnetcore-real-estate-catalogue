@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import * as fromRealEstates from '../../../reducers';
 import { Store } from '@ngrx/store';
 import { storage } from 'firebase';
-import { Subject } from 'rxjs';
+import { Subject, Observable, from } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { RealEstate } from '../../../../shared/api-client';
 import * as CollectionActions from '../../../actions/collection.actions';
@@ -37,16 +37,20 @@ export class RealEstateEditComponent implements OnInit {
 
   imageUploadsInProgressNum = 0;
 
+  mediaUrls: MediaUrl[] = [];
+  // TODO observable + mediaurlsarray
   constructor(
     private store: Store<fromRealEstates.State>,
     private afStorage: AngularFireStorage,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private ref: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.createForm();
     if (this.editExistingRealEstate) {
       this.setFormValues();
+      this.mediaUrls = Array.from(this.realEstate.mediaUrls);
     }
   }
 
@@ -127,7 +131,8 @@ export class RealEstateEditComponent implements OnInit {
       constructionYear: this.newRealEstateThirdForm.get('constructionYear')
         .value,
       seoKeywords: this.newRealEstateThirdForm.get('seoKeywords').value,
-      isDeleted: false
+      isDeleted: false,
+      mediaUrls: this.mediaUrls
     } as RealEstate;
 
     if (this.editExistingRealEstate) {
@@ -149,9 +154,10 @@ export class RealEstateEditComponent implements OnInit {
   upload(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      this.realEstate.mediaUrls = downloadURLs.map(u => {
+      this.mediaUrls = downloadURLs.map(u => {
         return { type: 'image', url: u };
       });
+      this.ref.detectChanges();
     });
   }
 
@@ -182,8 +188,7 @@ export class RealEstateEditComponent implements OnInit {
 
   get hasUploadedImage() {
     return (
-      this.realEstate.mediaUrls.length > 0 &&
-      this.realEstate.previewMediaUrl !== null
+      this.mediaUrls.length > 0 && this.realEstate.previewMediaUrl !== null
     );
   }
 
@@ -197,20 +202,17 @@ export class RealEstateEditComponent implements OnInit {
 
   delete(index: number) {
     const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      data: {
+        dialogTitle: 'Kép törlése.',
+        dialogContent: 'Biztos törli a képet?'
+      },
       height: '170px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        const workingArray = this.realEstate.mediaUrls.filter(
-          (m, i) => index !== i
-        );
-        this.store.dispatch(
-          new CollectionActions.UpdateRealEstate({
-            ...this.realEstate,
-            mediaUrls: workingArray
-          })
-        );
+        this.mediaUrls = this.mediaUrls.filter((m, i) => index !== i);
+        this.ref.detectChanges();
       }
     });
   }
@@ -220,35 +222,21 @@ export class RealEstateEditComponent implements OnInit {
       return;
     }
 
-    const workingArray = Array.from(this.realEstate.mediaUrls);
-
-    const prevElement = workingArray[index - 1];
-    const currentElement = workingArray[index];
-    workingArray.splice(index - 1, 2, currentElement, prevElement);
-
-    this.store.dispatch(
-      new CollectionActions.UpdateRealEstate({
-        ...this.realEstate,
-        mediaUrls: workingArray
-      })
-    );
+    const prevElement = this.mediaUrls[index - 1];
+    const currentElement = this.mediaUrls[index];
+    this.mediaUrls.splice(index - 1, 2, currentElement, prevElement);
+    this.ref.detectChanges();
   }
 
   down(index: number) {
-    if (index >= this.realEstate.mediaUrls.length) {
+    if (index >= this.realEstate.mediaUrls.length - 1) {
       return;
     }
-    const workingArray = Array.from(this.realEstate.mediaUrls);
 
-    const nextElement = workingArray[index + 1];
-    const currentElement = workingArray[index];
-    workingArray.splice(index, 2, nextElement, currentElement);
+    const currentElement = this.mediaUrls[index];
+    const nextElement = this.mediaUrls[index + 1];
 
-    this.store.dispatch(
-      new CollectionActions.UpdateRealEstate({
-        ...this.realEstate,
-        mediaUrls: workingArray
-      })
-    );
+    this.mediaUrls.splice(index, 2, nextElement, currentElement);
+    this.ref.detectChanges();
   }
 }

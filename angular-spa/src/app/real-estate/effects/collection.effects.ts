@@ -139,7 +139,7 @@ export class CollectionEffects {
         .then(() => new UpdateRealEstateSuccess(realEstate))
         .catch(() => new UpdateRealEstateFail(realEstate))
     ),
-    tap(() => this.router.navigate(['/']))
+    tap(() => location.reload())
   );
 
   @Effect()
