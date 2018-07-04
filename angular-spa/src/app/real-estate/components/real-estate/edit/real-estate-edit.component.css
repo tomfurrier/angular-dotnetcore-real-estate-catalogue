@@ -6,3 +6,23 @@ mat-file-upload-queue {
 .new-real-estate-form {
   margin: 20px 0;
 }
+
+.main-divider {
+  margin: 20px 0;
+}
+
+.preview-image {
+  max-width: 400px;
+}
+
+.preview-image-small {
+  max-width: 200px;
+}
+
+.dynamic-content {
+  height: 100%;
+}
+
+.media-list-item {
+  margin: 5px 0;
+}

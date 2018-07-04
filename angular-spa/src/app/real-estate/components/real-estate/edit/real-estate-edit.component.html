@@ -96,25 +96,49 @@
     </mat-step>
 
     <mat-step [stepControl]="newRealEstateFourthForm">
-      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="newRealEstateFourthForm">
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="newRealEstateFourthForm" class="dynamic-content">
         <ng-template matStepLabel>Fényképek feltöltése</ng-template>
-
-
-        <!-- <progress max="100" [value]="(uploadProgress | async)"></progress> -->
-        <p>Fényképek feltöltése</p>
-        <input mat-raised-button type="file" name="image-upload" (change)="upload($event)" accept="image/png, image/jpeg, image/jpg"
-          multiple/>
-        <!-- <input hidden type="file" #imgFileInput multiple accept="image/*" [fileUploadInputFor]="fileUploadQueue" />
-        <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'" [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
-          <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-
-
-          
-        </mat-file-upload-queue> -->
-        <p>Előnézeti kép feltöltése</p>
-        <input mat-raised-button type="file" name="preview-image-upload" (change)="uploadPreviewImage($event)" accept="image/png, image/jpeg, image/jpg"
-        />
-
+        <mat-list class="dynamic-content">
+          <mat-list-item>
+            <h4>Előnézeti kép feltöltése</h4>
+          </mat-list-item>
+          <mat-list-item class="dynamic-content">
+            <img class="preview-image" *ngIf="realEstate?.previewMediaUrl?.type==='image'" [src]="realEstate.previewMediaUrl.url" alt="Előnézeti kép">
+          </mat-list-item>
+          <mat-list-item>
+            <input mat-raised-button type="file" name="preview-image-upload" (change)="uploadPreviewImage($event)" accept="image/png, image/jpeg, image/jpg"
+            />
+          </mat-list-item>
+          <mat-divider class="main-divider"></mat-divider>
+          <mat-list-item>
+            <h4>Képgaléria képek feltöltése</h4>
+          </mat-list-item>
+          <mat-list-item class="dynamic-content">
+            <mat-list>
+              <mat-list-item *ngFor="let media of realEstate?.mediaUrls; let i = index" class="dynamic-content media-list-item">
+                <span>{{ i + 1 }}.</span>
+                <img class="preview-image-small" *ngIf="media?.type==='image'" [src]="media.url" alt="Előnézeti kép">
+                <button mat-icon-button (click)="up(i)" hint="Fel">
+                  <mat-icon>arrow_drop_up</mat-icon>
+                  <span class="nav-caption">Fel</span>
+                </button>
+                <button mat-icon-button (click)="down(i)" hint="Le">
+                  <mat-icon>arrow_drop_down</mat-icon>
+                  <span class="nav-caption">Le</span>
+                </button>
+                <button mat-icon-button (click)="delete(i)" hint="Törlés">
+                  <mat-icon>delete</mat-icon>
+                  <span class="nav-caption">Törlés</span>
+                </button>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </mat-list-item>
+          <mat-list-item>
+            <input mat-raised-button type="file" name="image-upload" (change)="upload($event)" accept="image/png, image/jpeg, image/jpg"
+              multiple/>
+          </mat-list-item>
+        </mat-list>
         <div layout="row">
           <button flex mat-button matStepperPrevious>Vissza</button>
           <button flex type="submit" mat-raised-button color="primary" [disabled]="!allFormsAreValid || imageUploadInProgress || (!hasUploadedImage && !editExistingRealEstate)"

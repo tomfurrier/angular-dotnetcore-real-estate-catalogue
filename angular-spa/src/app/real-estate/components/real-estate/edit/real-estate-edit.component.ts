@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { RealEstate } from '../../../../shared/api-client';
 import * as CollectionActions from '../../../actions/collection.actions';
+import { ConfirmDeleteDialogComponent } from '../detail/confirm-delete.component';
+import { MatDialog } from '@angular/material';
 
 interface MediaUrl {
   type: string;
@@ -35,12 +37,10 @@ export class RealEstateEditComponent implements OnInit {
 
   imageUploadsInProgressNum = 0;
 
-  mediaUrls: MediaUrl[] = [];
-  previewMediaUrl: MediaUrl = null;
-
   constructor(
     private store: Store<fromRealEstates.State>,
-    private afStorage: AngularFireStorage
+    private afStorage: AngularFireStorage,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -127,17 +127,10 @@ export class RealEstateEditComponent implements OnInit {
       constructionYear: this.newRealEstateThirdForm.get('constructionYear')
         .value,
       seoKeywords: this.newRealEstateThirdForm.get('seoKeywords').value,
-      mediaUrls:
-        this.mediaUrls.length > 0 ? this.mediaUrls : this.realEstate.mediaUrls,
-      previewMediaUrl: this.previewMediaUrl
-        ? this.previewMediaUrl.url
-        : this.realEstate.previewMediaUrl,
       isDeleted: false
     } as RealEstate;
 
     if (this.editExistingRealEstate) {
-      console.log('realEstate id: ' + this.realEstate.id);
-
       this.store.dispatch(
         new CollectionActions.UpdateRealEstate(this.realEstate)
       );
@@ -149,14 +142,14 @@ export class RealEstateEditComponent implements OnInit {
   uploadPreviewImage(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      this.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
+      this.realEstate.previewMediaUrl = { type: 'image', url: downloadURLs[0] };
     });
   }
 
   upload(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      this.mediaUrls = downloadURLs.map(u => {
+      this.realEstate.mediaUrls = downloadURLs.map(u => {
         return { type: 'image', url: u };
       });
     });
@@ -188,7 +181,10 @@ export class RealEstateEditComponent implements OnInit {
   }
 
   get hasUploadedImage() {
-    return this.mediaUrls.length > 0 && this.previewMediaUrl !== null;
+    return (
+      this.realEstate.mediaUrls.length > 0 &&
+      this.realEstate.previewMediaUrl !== null
+    );
   }
 
   get allFormsAreValid() {
@@ -196,6 +192,63 @@ export class RealEstateEditComponent implements OnInit {
       this.newRealEstateFirstForm.valid &&
       this.newRealEstateSecondForm.valid &&
       this.newRealEstateThirdForm.valid
+    );
+  }
+
+  delete(index: number) {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      height: '170px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const workingArray = this.realEstate.mediaUrls.filter(
+          (m, i) => index !== i
+        );
+        this.store.dispatch(
+          new CollectionActions.UpdateRealEstate({
+            ...this.realEstate,
+            mediaUrls: workingArray
+          })
+        );
+      }
+    });
+  }
+
+  up(index: number) {
+    if (index <= 0) {
+      return;
+    }
+
+    const workingArray = Array.from(this.realEstate.mediaUrls);
+
+    const prevElement = workingArray[index - 1];
+    const currentElement = workingArray[index];
+    workingArray.splice(index - 1, 2, currentElement, prevElement);
+
+    this.store.dispatch(
+      new CollectionActions.UpdateRealEstate({
+        ...this.realEstate,
+        mediaUrls: workingArray
+      })
+    );
+  }
+
+  down(index: number) {
+    if (index >= this.realEstate.mediaUrls.length) {
+      return;
+    }
+    const workingArray = Array.from(this.realEstate.mediaUrls);
+
+    const nextElement = workingArray[index + 1];
+    const currentElement = workingArray[index];
+    workingArray.splice(index, 2, nextElement, currentElement);
+
+    this.store.dispatch(
+      new CollectionActions.UpdateRealEstate({
+        ...this.realEstate,
+        mediaUrls: workingArray
+      })
     );
   }
 }

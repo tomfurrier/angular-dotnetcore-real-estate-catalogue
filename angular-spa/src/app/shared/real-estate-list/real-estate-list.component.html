@@ -11,7 +11,7 @@
 
           <mat-card-content>
             <a *ngIf="realEstate.previewMediaUrl">
-              <img [src]="realEstate.previewMediaUrl" alt="Ingatlan nyitókép" class="cover-img">
+              <img [src]="realEstate.previewMediaUrl.url" alt="Ingatlan nyitókép" class="cover-img">
             </a>
             <!-- <ngb-carousel>
               <ng-template ngbSlide *ngFor="let mediaUrl of realEstate.mediaUrls">
