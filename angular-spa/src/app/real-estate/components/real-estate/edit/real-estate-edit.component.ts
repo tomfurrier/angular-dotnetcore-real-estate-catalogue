@@ -154,9 +154,11 @@ export class RealEstateEditComponent implements OnInit {
   upload(event) {
     const filesToUpload: File[] = event.target.files;
     this.uploadFilesToFirestore(filesToUpload).then(downloadURLs => {
-      this.mediaUrls = downloadURLs.map(u => {
-        return { type: 'image', url: u };
-      });
+      this.mediaUrls = this.mediaUrls.concat(
+        downloadURLs.map(u => {
+          return { type: 'image', url: u };
+        })
+      );
       this.ref.detectChanges();
     });
   }
@@ -229,7 +231,7 @@ export class RealEstateEditComponent implements OnInit {
   }
 
   down(index: number) {
-    if (index >= this.realEstate.mediaUrls.length - 1) {
+    if (index >= this.mediaUrls.length - 1) {
       return;
     }
 

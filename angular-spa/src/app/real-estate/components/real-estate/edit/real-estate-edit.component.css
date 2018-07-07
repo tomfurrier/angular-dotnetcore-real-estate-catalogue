@@ -1,6 +1,5 @@
-mat-form-field,
-mat-file-upload-queue {
-  width: 300px;
+mat-form-field {
+  width: 400px;
 }
 
 .new-real-estate-form {
@@ -12,17 +11,28 @@ mat-file-upload-queue {
 }
 
 .preview-image {
-  max-width: 400px;
+  max-width: 350px;
+  margin: 5px 0;
 }
 
 .preview-image-small {
   max-width: 200px;
 }
 
-.dynamic-content {
-  height: 100%;
+.media-list {
+  max-width: 450px;
+  list-style-type: none;
 }
 
 .media-list-item {
   margin: 5px 0;
+}
+
+.gallery-preview {
+  max-width: 450px;
+}
+
+.gallery-button {
+  max-width: 40px;
+  padding-right: 20px;
 }
